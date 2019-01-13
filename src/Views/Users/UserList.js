@@ -16,6 +16,8 @@ class UserList extends React.Component {
     render() {
         const { users, loading, error } = this.props;
 
+        console.log('Changes');
+
 	  	const columns = [{
 		    Header: 'Name',
 		    accessor: 'name'
