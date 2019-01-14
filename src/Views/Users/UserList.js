@@ -1,9 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-// React Table
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
+import ServerSideTable from '../../Components/Common/ServerSideTable';
 
 // Redux Action
 import { fetchUsers } from "../../Actions/UserActions";
@@ -14,48 +12,61 @@ class UserList extends React.Component {
     }
 
     render() {
-        const { users, loading, error } = this.props;
+        const { users, isLoading, hasError } = this.props;
 
-        console.log('Changes');
+	  	const columns = [
+            {
+    	  		Header: 'ID',
+    			accessor: 'user_id',
+    			width: 150,
+        		Cell: props => <div className='text-center'>
+        							<span className='badge badge-pill badge-primary'>{props.value}</span>
+        						</div>
+    		},
+            {
+    			Header: 'First Name',
+    		    accessor: 'first_name'
+    	  	},
+            {
+                Header: 'Last Name',
+                accessor: 'last_name'
+            },
+            {
+                Header: 'Username',
+                accessor: 'username'
+            }
+        ]
 
-	  	const columns = [{
-		    Header: 'Name',
-		    accessor: 'name'
-	  	}]
-
-        if (error) {
-            return <div>Error! {error.message}</div>;
-        }
-
-        if (loading) {
-            return <div>Loading...</div>;
+        if (hasError) {
+            return <div>Error! {hasError.message}</div>;
         }
 
         return (
-            <div>
-                <ReactTable
-                	data={users}
-                	columns={columns}
-                	defaultPageSize={10}
-                	SubComponent={row => {
-					    return (
-					      	<div>
-						        You can put any component you want here, even another React Table! You
-						        even have access to the row-level data if you need! Spark-charts,
-						        drill-throughs, infographics... the possibilities are endless!
-					      	</div>
-					    );
-				  	}}
-                />
+            <div className="card">
+	            <div className="card-header">
+                	<h4 className="card-title">REACT TABLE</h4>
+                	<p className="card-category">Fetching records from API</p>
+              	</div>
+            	<div className="card-body">
+            		<div className="row">
+            			<div className="col-md-12">
+			                <ServerSideTable
+			                	data={users}
+			                	columns={columns}
+			                	loading={isLoading}
+			                />
+            			</div>
+            		</div>
+            	</div>
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-    users:      state.UserReducer.users,
-    loading:    state.UserReducer.loading,
-    error:      state.UserReducer.error
+    users:      state.users.fetch.users,
+    loading:    state.users.fetch.isLoading,
+    error:      state.users.fetch.hasError
 });
 
 export default connect(mapStateToProps)(UserList);

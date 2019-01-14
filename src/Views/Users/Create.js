@@ -1,91 +1,81 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from "react-redux";
+import { bindActionCreators } from 'redux'
+import {
+	addTodo
+} from '../../Actions/UserActions';
 
-class CreateUser extends Component {
-	constructor(){
-      	super();
+const CreateUser = (props) => {
+	let todo, input;
 
-      	this.state = {
-      		persons: []
-      	}
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		props.addTodo(todo);
+		input.value = '';
+	}
 
-      	this.handleClick = this.handleClick.bind(this);
-      	this.handleSubmit = this.handleSubmit.bind(this);
-    }
+	const handleChange = (e) => {
+		todo = e.target.value;
+	}
 
-    handleClick() {
-	    console.log('Clicked')
-  	}
-
-  	handleSubmit(event) {
-  		event.preventDefault();
-  		console.log('Form Submitted')
-  	}
-
-    render() {
-        return (
-        	<div>
-	        	<div className="card">
-	              	<div className="card-header">
-	                	<h4 className="card-title">CREATE</h4>
-	                	<p className="card-category">Create Sample Person</p>
-	              	</div>
-	              	<div className="card-body">
-	              		<form onSubmit={this.handleSubmit}>
-			                <div className="row">
-			                	<div className="col-md-3">
-			                      	<div className="form-group">
-				                        <label>First Name</label>
-				                        <input 
-				                        	type="text" 
-				                        	className="form-control"
-				                        />
-			                      	</div>
-			                    </div>
-			                    <div className="col-md-3">
-			                      	<div className="form-group">
-				                        <label>Middle Name</label>
-				                        <input 
-				                        	type="text" 
-				                        	className="form-control"
-				                        />
-			                      	</div>
-			                    </div>
-			                    <div className="col-md-3">
-			                      	<div className="form-group">
-				                        <label>Last Name</label>
-				                        <input 
-				                        	type="text"
-				                        	className="form-control"
-				                        />
-			                      	</div>
-			                    </div>
-			                    <div className="col-md-3">
-			                      	<div className="form-group">
-				                        <label>Username</label>
-				                        <input 
-				                        	type="text"
-				                        	className="form-control"
-				                        />
-			                      	</div>
-			                    </div>
-			                </div>
-			                <div className="row">
-			                	<div className="col-md-12">
-			                		<div className="form-group">
-			                			<input 
-			                				type="submit"
-			                				className="btn btn-round btn-block btn-fill btn-danger"
-			                				value="Create"
-			                			/>
-		                			</div>
-			                	</div>
-			                </div>
-		                </form>
-	              	</div>
-	            </div>
-	        </div>
-        );
-    }
+	return (
+		<div>
+			<h3>FORMS</h3>
+			<p>Handling form submission using controlled components</p>
+        	<div className="card">
+              	<div className="card-header">
+                	<h4 className="card-title">CREATE</h4>
+                	<p>Create To Do</p>
+              	</div>
+              	<div className="card-body">
+              		<form onSubmit={handleSubmit}>
+		                <div className="row">
+		                	<div className="col-md-12">
+		                      	<div className="form-group">
+			                        <label>To Do:</label>
+			                        <input
+			                        	type="text"
+			                        	className="form-control"
+			                        	onChange={handleChange}
+			                        	ref={node => { input = node }}
+			                        />
+		                      	</div>
+		                    </div>
+		                </div>
+		                <div className="row">
+		                	<div className="col-md-12">
+		                		<div className="form-group">
+		                			<input 
+		                				type="submit"
+		                				className="btn btn-round btn-block btn-fill btn-danger"
+		                				value="Create"
+		                			/>
+	                			</div>
+		                	</div>
+		                </div>
+	                </form>
+              	</div>
+            </div>
+            <div className="card">
+            	<div className="card-body">
+            		<h4>
+            			TODOS:
+            		</h4>
+            		{props.todos.map((data) =>
+            			<li key={data.key}>{data.todo}</li>
+            		)}
+            	</div>
+            </div>
+        </div>
+	)
 }
 
-export default CreateUser;
+const mapStateToProps = (state) => ({
+	todos: state.users.create.todos
+})
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+	addTodo
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateUser);

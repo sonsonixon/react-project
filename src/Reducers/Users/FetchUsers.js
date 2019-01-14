@@ -2,12 +2,12 @@ import {
     FETCH_USERS_BEGIN,
     FETCH_USERS_SUCCESS,
     FETCH_USERS_FAILURE
-} from '../Actions/UserActions';
+} from '../../Constants';
 
 const initialState = {
     users: [],
-    loading: false,
-	error: null
+    isLoading: false,
+	hasError: null
 };
 
 export default (state = initialState, action) => {

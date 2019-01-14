@@ -1,7 +1,7 @@
 import {
 	INCREMENT,
 	DECREMENT
-} from '../Actions/CounterActions';
+} from '../Constants';
 
 const initialState = {
     count: 0,
