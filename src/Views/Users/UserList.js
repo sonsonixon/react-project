@@ -14,6 +14,8 @@ class UserList extends React.Component {
     render() {
         const { users, isLoading, hasError } = this.props;
 
+        console.log(users);
+        
 	  	const columns = [
             {
     	  		Header: 'ID',
@@ -64,9 +66,9 @@ class UserList extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    users:      state.users.fetch.users,
-    loading:    state.users.fetch.isLoading,
-    error:      state.users.fetch.hasError
+    users:      state.users.users,
+    loading:    state.users.isLoading,
+    error:      state.users.hasError
 });
 
 export default connect(mapStateToProps)(UserList);

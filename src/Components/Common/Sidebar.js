@@ -37,7 +37,11 @@ class Sidebar extends Component {
 				         		<i className="fa fa-fw fa-list"></i>
 				         		List
 				         	</SidebarLink>
-	                 	</Collapse>             	
+	                 	</Collapse>
+	                 	<SidebarLink to="/todo" exact={true}>
+	                 		<i className="fa fa-fw fa fa-hand-peace-o"></i>
+	                 		Todo
+	                 	</SidebarLink>             	
 	                </ul>
 	            </div>
 	        </div>

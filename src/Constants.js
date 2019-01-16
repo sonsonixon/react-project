@@ -1,11 +1,21 @@
-// Counter Constants
+// COUNTER_
 export const INCREMENT  = 'INCREMENT';
 export const DECREMENT	= 'DECREMENT';
 
-// Fetch Users Constants
-export const FETCH_USERS_BEGIN      = 'FETCH_USERS_BEGIN';
-export const FETCH_USERS_SUCCESS    = 'FETCH_USERS_SUCCESS';
-export const FETCH_USERS_FAILURE    = 'FETCH_USERS_FAILURE';
+// USERS_
+// FETCH
+export const FETCH_USERS_BEGIN   = 'FETCH_USERS_BEGIN';
+export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
+export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
 
-// Add Todo Constants
+// HANDLE
+export const HANDLE_FIRSTNAME 	= 'HANDLE_FIRSTNAME';
+export const HANDLE_MIDDLENAME 	= 'HANDLE_MIDDLENAME';
+export const HANDLE_LASTNAME 	= 'HANDLE_LASTNAME';
+export const HANDLE_USERNAME 	= 'HANDLE_USERNAME';
+
+// ADD
+export const ADD_USER = 'ADD_USER';
+
+// TODO_
 export const ADD_TODO = 'ADD_TODO';

@@ -2,10 +2,11 @@ import { combineReducers } from 'redux';
 
 //Reducers
 import CounterReducer from './CounterReducer';
-import UserReducer from './Users/UserReducer';
-
+import UserReducer from './UserReducer';
+import TodoReducer from './TodoReducer';
 
 export default combineReducers({
 	counter: CounterReducer,
-  	users: UserReducer
+  	users: UserReducer,
+  	todo: TodoReducer
 });

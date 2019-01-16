@@ -19,6 +19,7 @@ import Create from './Views/Users/Create';
 import Counter from './Views/Counter';
 import Dashboard from './Views/Dashboard';
 import Logout from './Views/Logout';
+import Todo from './Views/Todo';
 import UserList from './Views/Users/UserList';
 
 class Routes extends Component {
@@ -36,6 +37,9 @@ class Routes extends Component {
 	        				/>
 		            	 	<Route exact path="/logout"	
 		            			render={(props) => <Logout {...props} />}
+		            		/>
+		            		<Route exact path="/todo"
+		            			render={(props) => <Todo {...props} />}
 		            		/>
 			            	<Route exact path="/users"
 			            		render={(props) => <UserList {...props} />}
