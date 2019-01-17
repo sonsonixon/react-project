@@ -6,7 +6,11 @@ import {
     HANDLE_MIDDLENAME,
     HANDLE_LASTNAME,
     HANDLE_USERNAME,
-    ADD_USER
+    CREATE_USER,
+    CREATE_USER_BEGIN,
+    CREATE_USER_SUCCESS,
+    CREATE_USER_FAIL,
+    CLEAR_FIELDS
 } from '../Constants';
 
 const initialState = {
@@ -16,7 +20,7 @@ const initialState = {
 	username: '',
     users: [],
     isLoading: false,
-	hasError: null
+	hasError: null,
 };
 
 export default (state = initialState, action) => {
@@ -26,20 +30,20 @@ export default (state = initialState, action) => {
         case FETCH_USERS_BEGIN:
             return {
             	...state,
-            	loading: true
+            	isLoading: true
             };
         case FETCH_USERS_SUCCESS:
             return {
             	...state,
-		        loading: false,
+		        isLoading: false,
 		        users: action.payload.data
             };
         case FETCH_USERS_FAILURE:
             return {
           		...state,
-		        loading: false,
-		        error: action.payload.err,
-		        users: {}
+		        isLoading: false,
+		        hasError: action.payload.error,
+		        users: []
             };
         // HANDLE
         case HANDLE_FIRSTNAME:
@@ -61,6 +65,38 @@ export default (state = initialState, action) => {
         	return {
         		...state,
         		username: action.payload.username
+        	};
+        // CREATE
+        case CREATE_USER_BEGIN:
+        	return {
+        		...state,
+        		isLoading: true,
+        		hasError: null
+        	};
+        case CREATE_USER_SUCCESS:
+        	return {
+        		...state,
+        		isLoading: false,
+        		hasError: null
+        	};
+        case CREATE_USER_FAIL:
+        	return {
+        		...state,
+        		isLoading: false,
+        		hasError: action.payload.error
+        	};
+        case CREATE_USER:
+        	return {
+        		...state
+        	};
+        // CLEAR STATE
+        case CLEAR_FIELDS:
+        	return {
+        		...state,
+        		firstname: '',
+        		middlename: '',
+        		lastname: '',
+        		username: ''
         	};
         default:
             return state;

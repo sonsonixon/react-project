@@ -5,41 +5,90 @@ import {
 	handleFirstname,
 	handleMiddlename,
 	handleLastname,
-	handleUsername
+	handleUsername,
+	createUser
 } from '../../Actions/UserActions';
+
+import swal from 'sweetalert2';
 
 const CreateUser = (props) => {
 	
-	let firstname, middlename, lastname, username, myForm;
+	let input;
+
+	const {
+		// States
+		firstname,
+		middlename,
+		lastname,
+		username,
+		isLoading,
+		// Functions
+		handleFirstname,
+		handleMiddlename,
+		handleLastname,
+		handleUsername,
+		createUser
+	} = props;
+
+
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log('Form Submitted | Form fields cleared')
-		myForm.reset();
+		createUser(firstname, lastname, username);
+		/* 
+		swal({
+		  	title: 'Custom animation with Animate.css',
+		  	animation: false,
+		  	customClass: 'animated tada'
+		})
+		*/
 	}
 
 	const handleChangeFirstname = (e) => {
 		e.preventDefault();
-		firstname = e.target.value;
-		props.handleFirstname(firstname);
+		input = e.target.value;
+		handleFirstname(input);
 	}
 
 	const handleChangeMiddlename = (e) => {
 		e.preventDefault();
-		middlename = e.target.value;
-		props.handleMiddlename(middlename);
+		input = e.target.value;
+		handleMiddlename(input);
 	}
 
 	const handleChangeLastname = (e) => {
 		e.preventDefault();
-		lastname = e.target.value;
-		props.handleLastname(lastname);
+		input = e.target.value;
+		handleLastname(input);
 	}
 
 	const handleChangeUsername = (e) => {
 		e.preventDefault();
-		username = e.target.value;
-		props.handleUsername(username);
+		input = e.target.value;
+		handleUsername(input);
+	}
+
+	const SubmitButton = (props) => {
+		const isLoading = props.isLoading;
+		if(isLoading){
+			return (
+				<button
+					type="button" 
+					disabled={isLoading} 
+					className="btn btn-round btn-wd btn-fill btn-danger"
+				>
+					<i className="fa fa-fw fa-spin fa-spinner"></i> Saving data...
+				</button>
+			)
+		} else {
+			return (
+				<input
+    				type="submit"
+    				className="btn btn-round btn-wd btn-fill btn-danger"
+    				value="Create"
+    			/>
+			)
+		}
 	}
 	/*
 	let todo, myForm;
@@ -63,7 +112,7 @@ const CreateUser = (props) => {
                 	<p>Lets create some users</p>
               	</div>
               	<div className="card-body">
-              		<form ref={(node) => myForm = node} onSubmit={handleSubmit}>
+              		<form onSubmit={handleSubmit}>
 		                <div className="row">
 		                	<div className="col-md-3">
 		                      	<div className="form-group">
@@ -72,6 +121,7 @@ const CreateUser = (props) => {
 			                        	type="text"
 			                        	className="form-control"
 			                        	onChange={handleChangeFirstname}
+			                        	value={firstname}
 			                        />
 		                      	</div>
 		                    </div>
@@ -82,6 +132,7 @@ const CreateUser = (props) => {
 			                        	type="text"
 			                        	className="form-control"
 			                        	onChange={handleChangeMiddlename}
+			                        	value={middlename}
 			                        />
 		                      	</div>
 		                    </div>
@@ -92,6 +143,7 @@ const CreateUser = (props) => {
 			                        	type="text"
 			                        	className="form-control"
 			                        	onChange={handleChangeLastname}
+			                        	value={lastname}
 			                        />
 		                      	</div>
 		                    </div>
@@ -102,6 +154,7 @@ const CreateUser = (props) => {
 			                        	type="text"
 			                        	className="form-control"
 			                        	onChange={handleChangeUsername}
+			                        	value={username}
 			                        />
 		                      	</div>
 		                    </div>
@@ -109,11 +162,7 @@ const CreateUser = (props) => {
 		                <div className="row">
 		                	<div className="col-md-12">
 		                		<div className="form-group text-center">
-		                			<input 
-		                				type="submit"
-		                				className="btn btn-round btn-wd btn-fill btn-danger"
-		                				value="Create"
-		                			/>
+		                			<SubmitButton isLoading={isLoading} />
 	                			</div>
 		                	</div>
 		                </div>
@@ -133,14 +182,16 @@ const mapStateToProps = (state) => ({
 	firstname: state.users.firstname,
 	middlename: state.users.middlename,
 	lastname: state.users.lastname,
-	username: state.users.username
+	username: state.users.username,
+	isLoading: state.users.isLoading,
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
 	handleFirstname,
 	handleMiddlename,
 	handleLastname,
-	handleUsername
+	handleUsername,
+	createUser
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateUser);

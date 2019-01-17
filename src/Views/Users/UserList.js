@@ -13,9 +13,7 @@ class UserList extends React.Component {
 
     render() {
         const { users, isLoading, hasError } = this.props;
-
-        console.log(users);
-        
+       
 	  	const columns = [
             {
     	  		Header: 'ID',

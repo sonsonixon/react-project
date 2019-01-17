@@ -14,8 +14,13 @@ export const HANDLE_MIDDLENAME 	= 'HANDLE_MIDDLENAME';
 export const HANDLE_LASTNAME 	= 'HANDLE_LASTNAME';
 export const HANDLE_USERNAME 	= 'HANDLE_USERNAME';
 
-// ADD
-export const ADD_USER = 'ADD_USER';
+// CREATE
+export const CREATE_USER = 'CREATE_USER';
+export const CREATE_USER_BEGIN = 'CREATE_USER_BEGIN';
+export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
+export const CREATE_USER_FAIL = 'CREATE_USER_FAIL';
+
+export const CLEAR_FIELDS = 'CLEAR_FIELDS';
 
 // TODO_
 export const ADD_TODO = 'ADD_TODO';

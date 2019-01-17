@@ -5,8 +5,18 @@ import { FETCH_USERS_BEGIN,
          HANDLE_FIRSTNAME,
          HANDLE_MIDDLENAME,
          HANDLE_LASTNAME,
-         HANDLE_USERNAME
+         HANDLE_USERNAME,
+         CREATE_USER_BEGIN,
+         CREATE_USER_SUCCESS,
+         CREATE_USER_FAIL,
+         CLEAR_FIELDS
 } from '../Constants';
+
+import API from '../Services/Api';
+
+import swal from 'sweetalert2'
+
+const api = API.create()
 
 // FETCH
 export const fetchUsersBegin = () => ({
@@ -44,6 +54,25 @@ export const handleUsername = (username) => ({
     payload: { username }
 })
 
+// CREATE
+export const createUserBegin = () => ({
+    type: CREATE_USER_BEGIN
+})
+
+export const createUserSuccess = () => ({
+    type: CREATE_USER_SUCCESS
+})
+
+export const createUserFail = (error) => ({
+    type: CREATE_USER_FAIL,
+    payload: { error }
+})
+
+// Create a function that will clear states
+export const clearFields = () => ({
+    type: CLEAR_FIELDS
+})
+
 // HANDLE HTTP ERRORS SINCE FETCH WONT.
 function handleErrors(response) {
   	if (!response.ok) {
@@ -52,19 +81,47 @@ function handleErrors(response) {
   	return response;
 }
 
+// FETCH ALL USERS
 export function fetchUsers() {
   	return dispatch => {
         dispatch(fetchUsersBegin());
-	   	fetch('http://localhost/api/users/fetch')
-	   	.then(handleErrors)
-	   	.then(function(response){
-	   		response.json()
-	   		.then(function(data){
-                return dispatch(fetchUsersSuccess(data));
-	   		})
-	   	})
-      	.catch(error =>
-        	dispatch(fetchUsersFailure(error))
-      	);
+	   	api.fetch()
+        .then(handleErrors)
+        .then((res) => {
+            return dispatch(fetchUsersSuccess(res.data));
+        })
+        .catch(error =>
+            dispatch(fetchUsersFailure(error))
+        );
   	};
+}
+
+// CREATE NEW USER
+export function createUser(firstname, lastname, username) {
+    return dispatch => {
+        dispatch(createUserBegin());
+        setTimeout(() => {
+            api.createUser(firstname, lastname, username)
+            .then(handleErrors)
+            .then((res) => {
+                dispatch(createUserSuccess());
+                if(res.data.code === 'success'){
+                    dispatch(clearFields());
+                    swal({
+                        title: 'Error!',
+                        text: 'Do you want to continue',
+                        type: 'error',
+                        confirmButtonText: 'Cool'
+                    })
+                    console.log(res.data);
+                }
+                else{
+                    console.log(res.data);
+                }                
+            })
+            .catch(error => 
+                dispatch(createUserFail())
+            ); 
+        }, 2000);       
+    }
 }
