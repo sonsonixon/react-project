@@ -1,22 +1,32 @@
 // ACTION CONSTANTS
 import { FETCH_USERS_BEGIN, 
-         FETCH_USERS_SUCCESS, 
+         FETCH_USERS_SUCCESS,
          FETCH_USERS_FAILURE,
-         HANDLE_FIRSTNAME,
-         HANDLE_MIDDLENAME,
-         HANDLE_LASTNAME,
-         HANDLE_USERNAME,
+         GET_FIRSTNAME,
+         GET_MIDDLENAME,
+         GET_LASTNAME,
+         GET_USERNAME,
          CREATE_USER_BEGIN,
          CREATE_USER_SUCCESS,
          CREATE_USER_FAIL,
-         CLEAR_FIELDS
+         CLEAR_USERS_STATE,
+         IS_VALID_FIRSTNAME,
+         IS_INVALID_FIRSTNAME
 } from '../Constants';
 
-import API from '../Services/Api';
+import apiCreator from '../Services/Api';
 
 import swal from 'sweetalert2'
 
-const api = API.create()
+const api = apiCreator.create();
+
+const toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 6000,
+    allowEscapeKey: false,
+});
 
 // FETCH
 export const fetchUsersBegin = () => ({
@@ -34,23 +44,23 @@ export const fetchUsersFailure = (error) => ({
 });
 
 // INPUT HANDLING
-export const handleFirstname = (firstname) => ({
-    type: HANDLE_FIRSTNAME,
+export const getFirstname = (firstname) => ({
+    type: GET_FIRSTNAME,
     payload: { firstname }
 })
 
-export const handleMiddlename = (middlename) => ({
-    type: HANDLE_MIDDLENAME,
+export const getMiddlename = (middlename) => ({
+    type: GET_MIDDLENAME,
     payload: { middlename }
 })
 
-export const handleLastname = (lastname) => ({
-    type: HANDLE_LASTNAME,
+export const getLastname = (lastname) => ({
+    type: GET_LASTNAME,
     payload: { lastname }
 })
 
-export const handleUsername = (username) => ({
-    type: HANDLE_USERNAME,
+export const getUsername = (username) => ({
+    type: GET_USERNAME,
     payload: { username }
 })
 
@@ -68,25 +78,33 @@ export const createUserFail = (error) => ({
     payload: { error }
 })
 
-// Create a function that will clear states
-export const clearFields = () => ({
-    type: CLEAR_FIELDS
+// CLEAR STATES
+export const clearUsersState = () => ({
+    type: CLEAR_USERS_STATE
 })
 
-// HANDLE HTTP ERRORS SINCE FETCH WONT.
-function handleErrors(response) {
-  	if (!response.ok) {
-    	throw Error(response.statusText);
-  	}
-  	return response;
+export const isValidFirstname = () => ({
+    type: IS_VALID_FIRSTNAME
+})
+
+export const isInvalidFirstname = () => ({
+    type: IS_INVALID_FIRSTNAME
+})
+
+export function addClassFirstname(input) {
+    return dispatch => {
+        (input) ? dispatch(isValidFirstname()) : dispatch(isInvalidFirstname())
+    }
 }
+
+
 
 // FETCH ALL USERS
 export function fetchUsers() {
   	return dispatch => {
         dispatch(fetchUsersBegin());
 	   	api.fetch()
-        .then(handleErrors)
+        //.then(handleErrors)
         .then((res) => {
             return dispatch(fetchUsersSuccess(res.data));
         })
@@ -102,21 +120,44 @@ export function createUser(firstname, lastname, username) {
         dispatch(createUserBegin());
         setTimeout(() => {
             api.createUser(firstname, lastname, username)
-            .then(handleErrors)
+            //.then(handleErrors)
             .then((res) => {
                 dispatch(createUserSuccess());
                 if(res.data.code === 'success'){
-                    dispatch(clearFields());
+                    dispatch(clearUsersState());
                     swal({
                         title: 'Error!',
                         text: 'Do you want to continue',
-                        type: 'error',
+                        type: 'success',
                         confirmButtonText: 'Cool'
                     })
                     console.log(res.data);
                 }
                 else{
-                    console.log(res.data);
+                    
+                    let errors = res.data.errors;
+                    let errorMessage = '';
+
+                    // Map response object
+                    Object.keys(errors).forEach(key => {
+                        switch(key){
+                            case 'first_name':
+                                break;
+                            default:  
+                        }
+                        errors[key].forEach(message => 
+                            errorMessage += message + '<br/><br/>'
+                        );
+                    });
+
+                    // Show error messages on a toast notification
+                    toast({
+                        type:   'error',
+                        html:   '<b>' +
+                                    '<br/>' +
+                                    errorMessage +
+                                '</b>'
+                    });
                 }                
             })
             .catch(error => 

@@ -2,25 +2,28 @@ import {
     FETCH_USERS_BEGIN,
     FETCH_USERS_SUCCESS,
     FETCH_USERS_FAILURE,
-    HANDLE_FIRSTNAME,
-    HANDLE_MIDDLENAME,
-    HANDLE_LASTNAME,
-    HANDLE_USERNAME,
+    GET_FIRSTNAME,
+    GET_MIDDLENAME,
+    GET_LASTNAME,
+    GET_USERNAME,
     CREATE_USER,
     CREATE_USER_BEGIN,
     CREATE_USER_SUCCESS,
     CREATE_USER_FAIL,
-    CLEAR_FIELDS
+    CLEAR_USERS_STATE,
+    IS_VALID_FIRSTNAME,
+    IS_INVALID_FIRSTNAME
 } from '../Constants';
 
 const initialState = {
 	firstname: '',
+    firstnameStatus: 'form-group',
 	middlename: '',
 	lastname: '',
 	username: '',
     users: [],
     isLoading: false,
-	hasError: null,
+	error: null,
 };
 
 export default (state = initialState, action) => {
@@ -42,26 +45,26 @@ export default (state = initialState, action) => {
             return {
           		...state,
 		        isLoading: false,
-		        hasError: action.payload.error,
+		        error: action.payload.error,
 		        users: []
             };
-        // HANDLE
-        case HANDLE_FIRSTNAME:
+        // GET
+        case GET_FIRSTNAME:
         	return {
         		...state,
         		firstname: action.payload.firstname
         	};
-        case HANDLE_MIDDLENAME:
+        case GET_MIDDLENAME:
         	return {
         		...state,
         		middlename: action.payload.middlename
         	};
-        case HANDLE_LASTNAME:
+        case GET_LASTNAME:
         	return {
         		...state,
         		lastname: action.payload.lastname
         	};
-        case HANDLE_USERNAME:
+        case GET_USERNAME:
         	return {
         		...state,
         		username: action.payload.username
@@ -71,26 +74,28 @@ export default (state = initialState, action) => {
         	return {
         		...state,
         		isLoading: true,
-        		hasError: null
+        		firstnameHasError: false,
+        		error: null
         	};
         case CREATE_USER_SUCCESS:
         	return {
         		...state,
         		isLoading: false,
-        		hasError: null
+        		hasError: false,
+        		error: null
         	};
         case CREATE_USER_FAIL:
         	return {
         		...state,
         		isLoading: false,
-        		hasError: action.payload.error
+        		error: action.payload.error
         	};
         case CREATE_USER:
         	return {
         		...state
         	};
         // CLEAR STATE
-        case CLEAR_FIELDS:
+        case CLEAR_USERS_STATE:
         	return {
         		...state,
         		firstname: '',
@@ -98,6 +103,16 @@ export default (state = initialState, action) => {
         		lastname: '',
         		username: ''
         	};
+        case IS_VALID_FIRSTNAME:
+            return {
+                ...state,
+                firstnameStatus: 'form-group has-success'
+            };
+        case IS_INVALID_FIRSTNAME:
+            return {
+                ...state,
+                firstnameStatus: 'form-group has-danger'
+            };
         default:
             return state;
     }

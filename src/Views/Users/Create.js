@@ -2,14 +2,13 @@ import React from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux'
 import {
-	handleFirstname,
-	handleMiddlename,
-	handleLastname,
-	handleUsername,
-	createUser
+	getFirstname,
+	getMiddlename,
+	getLastname,
+	getUsername,
+	createUser,
+	addClassFirstname
 } from '../../Actions/UserActions';
-
-import swal from 'sweetalert2';
 
 const CreateUser = (props) => {
 	
@@ -22,50 +21,44 @@ const CreateUser = (props) => {
 		lastname,
 		username,
 		isLoading,
+		firstnameStatus,
 		// Functions
-		handleFirstname,
-		handleMiddlename,
-		handleLastname,
-		handleUsername,
-		createUser
+		getFirstname,
+		getMiddlename,
+		getLastname,
+		getUsername,
+		createUser,
+		addClassFirstname
 	} = props;
-
-
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		createUser(firstname, lastname, username);
-		/* 
-		swal({
-		  	title: 'Custom animation with Animate.css',
-		  	animation: false,
-		  	customClass: 'animated tada'
-		})
-		*/
 	}
 
 	const handleChangeFirstname = (e) => {
 		e.preventDefault();
 		input = e.target.value;
-		handleFirstname(input);
+		getFirstname(input)
+		addClassFirstname(input);
 	}
 
 	const handleChangeMiddlename = (e) => {
 		e.preventDefault();
 		input = e.target.value;
-		handleMiddlename(input);
+		getMiddlename(input);
 	}
 
 	const handleChangeLastname = (e) => {
 		e.preventDefault();
 		input = e.target.value;
-		handleLastname(input);
+		getLastname(input);
 	}
 
 	const handleChangeUsername = (e) => {
 		e.preventDefault();
 		input = e.target.value;
-		handleUsername(input);
+		getUsername(input);
 	}
 
 	const SubmitButton = (props) => {
@@ -74,7 +67,7 @@ const CreateUser = (props) => {
 			return (
 				<button
 					type="button" 
-					disabled={isLoading} 
+					disabled
 					className="btn btn-round btn-wd btn-fill btn-danger"
 				>
 					<i className="fa fa-fw fa-spin fa-spinner"></i> Saving data...
@@ -90,19 +83,6 @@ const CreateUser = (props) => {
 			)
 		}
 	}
-	/*
-	let todo, myForm;
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		props.addTodo(todo);
-		myForm.reset();
-	}
-
-	const handleChange = (e) => {
-		todo = e.target.value;
-	}
-	*/
 
 	return (
 		<div>
@@ -115,7 +95,7 @@ const CreateUser = (props) => {
               		<form onSubmit={handleSubmit}>
 		                <div className="row">
 		                	<div className="col-md-3">
-		                      	<div className="form-group">
+		                      	<div className={firstnameStatus}>
 			                        <label>First Name:</label>
 			                        <input
 			                        	type="text"
@@ -179,19 +159,21 @@ const CreateUser = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-	firstname: state.users.firstname,
-	middlename: state.users.middlename,
-	lastname: state.users.lastname,
-	username: state.users.username,
-	isLoading: state.users.isLoading,
+	firstname: 			state.users.firstname,
+	middlename: 		state.users.middlename,
+	lastname: 			state.users.lastname,
+	username: 			state.users.username,
+	isLoading: 			state.users.isLoading,
+	firstnameStatus: 	state.users.firstnameStatus
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-	handleFirstname,
-	handleMiddlename,
-	handleLastname,
-	handleUsername,
-	createUser
+	getFirstname,
+	getMiddlename,
+	getLastname,
+	getUsername,
+	createUser,
+	addClassFirstname
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateUser);

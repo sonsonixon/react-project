@@ -12,7 +12,7 @@ class UserList extends React.Component {
     }
 
     render() {
-        const { users, isLoading, hasError } = this.props;
+        const { users, isLoading, error } = this.props;
        
 	  	const columns = [
             {
@@ -37,8 +37,8 @@ class UserList extends React.Component {
             }
         ]
 
-        if (hasError) {
-            return <div>Error! {hasError.message}</div>;
+        if (error) {
+            return <div>Error! {error.message}</div>;
         }
 
         return (
@@ -65,7 +65,7 @@ class UserList extends React.Component {
 
 const mapStateToProps = (state) => ({
     users:      state.users.users,
-    loading:    state.users.isLoading,
+    isLoading:    state.users.isLoading,
     error:      state.users.hasError
 });
 

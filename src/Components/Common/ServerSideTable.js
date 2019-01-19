@@ -23,6 +23,7 @@ class ServerSideTable extends Component {
                 	columns={this.props.columns}
                 	loading={this.props.loading}
                 	className="-highlight"
+                    onFetchData={this.props.refreshData}
                 />
             </div>
         );

@@ -1,20 +1,46 @@
 import {
-    ADD_TODO,
+    CLEAR_STATE_TODO,
+    CHANGE_USERID,
+    CHANGE_TITLE,
+    FETCH_FAILED,
+    UPDATE_TODOS,
 } from '../Constants';
 
 const initialState = {
-    key: 0,
-    todos: [],
+    userid: '',
+    title: '',
+    error: null,
+    todos: []
 };
 
 export default (state = initialState, action) => {
 
     switch(action.type) {
-        case ADD_TODO:
+        case CLEAR_STATE_TODO:
             return {
-            	...state,
-                key: state.key + 1,
-            	todos: state.todos.concat({key: state.key, todo: action.payload.todo}),
+                ...state,
+                userid: '',
+                title: ''
+            };
+        case CHANGE_USERID:
+            return {
+                ...state,
+                userid: action.payload.data
+            };
+        case CHANGE_TITLE:
+            return {
+                ...state,
+                title: action.payload.data
+            };
+        case FETCH_FAILED:
+            return {
+                ...state,
+                error: action.payload.error
+            };
+        case UPDATE_TODOS:
+            return {
+                ...state,
+                todos: action.payload.data
             };
         default:
             return state;

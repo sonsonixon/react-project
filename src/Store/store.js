@@ -3,15 +3,7 @@ import thunk from 'redux-thunk';
 
 import RootReducer from '../Reducers/RootReducer';
 
-// Custom Middleware
-/*
-const loggerMiddleware = store => next => action => {
-	console.log('This is a custom logger middleware.');
-	console.log('Action Dispatched: ' + action.type);
-	console.log(' ');
-	next(action);
-}
-*/
+//import { LoggerMiddleware } from '../Middleware/LoggerMiddleware';
 
 const store = createStore(
     RootReducer,
