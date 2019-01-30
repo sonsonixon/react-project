@@ -149,11 +149,6 @@ const CreateUser = (props) => {
 	                </form>
               	</div>
             </div>
-            <div className="card">
-            	<div className="card-body">
-            		
-            	</div>
-            </div>
         </div>
 	)
 }

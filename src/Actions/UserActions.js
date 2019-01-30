@@ -12,7 +12,7 @@ import { FETCH_USERS_BEGIN,
          CLEAR_USERS_STATE,
          IS_VALID_FIRSTNAME,
          IS_INVALID_FIRSTNAME
-} from '../Constants';
+} from '../ActionCreator';
 
 import apiCreator from '../Services/Api';
 

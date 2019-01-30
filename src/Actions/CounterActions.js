@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT } from '../Constants';
+import { INCREMENT, DECREMENT } from '../ActionCreator';
 
 export const increment = () => {
   	return dispatch => {

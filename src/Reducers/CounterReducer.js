@@ -1,12 +1,13 @@
+/*
 import {
-	INCREMENT,
-	DECREMENT
+    INCREMENT,
+    DECREMENT
 } from '../Constants';
 
 const initialState = {
     count: 0,
     isIncrementing: null,
-	isDecrementing: null
+    isDecrementing: null
 };
 
 export default (state = initialState, action) => {
@@ -14,18 +15,19 @@ export default (state = initialState, action) => {
     switch(action.type) {
         case INCREMENT:
             return {
-            	...state,
-            	count: state.count + 1,
-            	isIncrementing: true
+                ...state,
+                count: state.count + 1,
+                isIncrementing: true
             };
         case DECREMENT:
             return {
-            	...state,
-		        count: state.count - 1,
-		        isDecrementing: true
+                ...state,
+                count: state.count - 1,
+                isDecrementing: true
             };
         default:
             return state;
     }
 
 }
+*/

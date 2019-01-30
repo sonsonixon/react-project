@@ -1,0 +1,14 @@
+TYPES OF ACTIONS
+
+EVENTS
+	| notifies a change in the app
+COMMANDS
+	| invoking queries or procedures
+DOCUMENTS
+	| contains or transfering data
+
+
+
+TIPS:
+	* It's okay to dispatch an action without invoking a procedure
+	

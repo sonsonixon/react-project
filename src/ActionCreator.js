@@ -1,0 +1,70 @@
+/* API REQUEST */
+export const API_REQUEST 	= 	'[API] API_REQUEST';
+export const REQUEST_SUCCESS = '[API] REQUEST_SUCCESS';
+export const REQUEST_FAILED = '[API] REQUEST_FAILED';
+
+/* USER INTERFACE */
+
+// Submit Button
+export const ENABLE_SUBMIT_BUTTON = '[UI] ENABLE_SUBMIT_BUTTON';
+
+/* Fetch Loaders */
+export const SHOW_FETCH_LOADER = '[UI] SHOW_FETCH_LOADER';
+export const HIDE_FETCH_LOADER = '[UI] HIDE_FETCH_LOADER';
+
+/* Post Loaders */
+export const SHOW_POST_LOADER = '[UI] SHOW_POST_LOADER';
+export const HIDE_POST_LOADER = '[UI] HIDE_POST_LOADER';
+
+/* Serverside Table */
+export const BUILD_TABLE = '[UI, SERVERSIDE_TABLE] BUILD_TABLE';
+export const DESTROY_TABLE = '[UI, SERVERSIDE_TABLE] DESTROY_TABLE';
+
+/* Todos */
+export const IS_VALID_USERID = '[UI, TODOS] IS_VALID_USERID';
+export const IS_INVALID_USERID = '[UI, TODOS] IS_INVALID_USERID';
+
+export const IS_VALID_TITLE = '[UI, TODOS] IS_VALID_TITLE';
+export const IS_INVALID_TITLE = '[UI, TODOS] IS_INVALID_TITLE';
+
+/* TODOS */
+export const UPDATE_USERID = '[TODOS] UPDATE_USERID';
+export const UPDATE_TITLE = '[TODOS] UPDATE_TITLE';
+
+/*
+export const FETCH_USERS_BEGIN   = 'FETCH_USERS_BEGIN';
+export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
+export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
+
+
+export const GET_FIRSTNAME 	= 'GET_FIRSTNAME';
+export const GET_MIDDLENAME = 'GET_MIDDLENAME';
+export const GET_LASTNAME 	= 'GET_LASTNAME';
+export const GET_USERNAME 	= 'GET_USERNAME';
+
+// **********
+export const IS_VALID_FIRSTNAME = 'IS_VALID_FIRSTNAME';
+export const IS_INVALID_FIRSTNAME = 'IS_INVALID_FIRSTNAME';
+
+
+export const CREATE_USER = 'CREATE_USER';
+export const CREATE_USER_BEGIN = 'CREATE_USER_BEGIN';
+export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
+export const CREATE_USER_FAIL = 'CREATE_USER_FAIL';
+
+export const CLEAR_USERS_STATE = 'CLEAR_USERS_STATE'; 
+
+// TODO_
+export const INVALID_USERID = '[UI] INVALID_USERID';
+export const INVALID_TITLE = '[UI] INVALID_TITLE';
+
+export const VALID_USERID = '[UI] VALID_USERID';
+export const VALID_TITLE = '[UI] VALID_TITLE';
+
+export const CLEAR_CLASS_USERID = '[UI] CLEAR_CLASS_USERID';
+export const CLEAR_CLASS_TITLE = '[UI] CLEAR_CLASS_TITLE';
+export const CLEAR_CLASS_TODO = '[UI] CLEAR_CLASS_TODO';
+
+export const HAS_ERROR = 'HAS_ERROR';
+export const HAS_SUCCESS = 'HAS_SUCCESS';
+*/

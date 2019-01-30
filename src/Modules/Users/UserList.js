@@ -1,32 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import ServerSideTable from '../../Components/Common/ServerSideTable';
-
-// Redux Action
-import { fetchUsers } from "../../Actions/UserActions";
+import ServerSideTable from '../../Components/ServerSideTable';
 
 class UserList extends React.Component {
-    componentDidMount() {
-        this.props.dispatch(fetchUsers());
-    }
+    constructor(props) {
+        super(props);
 
-    render() {
-        const { users, isLoading, error } = this.props;
-       
-	  	const columns = [
+        this.columns = [
             {
-    	  		Header: 'ID',
-    			accessor: 'user_id',
-    			width: 150,
-        		Cell: props => <div className='text-center'>
-        							<span className='badge badge-pill badge-primary'>{props.value}</span>
-        						</div>
-    		},
+                Header: 'ID',
+                accessor: 'user_id',
+                width: 150,
+                Cell: props => <div className='text-center'>
+                                    <span className='badge badge-pill badge-primary'>{props.value}</span>
+                                </div>
+            },
             {
-    			Header: 'First Name',
-    		    accessor: 'first_name'
-    	  	},
+                Header: 'First Name',
+                accessor: 'first_name'
+            },
             {
                 Header: 'Last Name',
                 accessor: 'last_name'
@@ -36,11 +29,9 @@ class UserList extends React.Component {
                 accessor: 'username'
             }
         ]
-
-        if (error) {
-            return <div>Error! {error.message}</div>;
-        }
-
+    }
+    
+    render() {
         return (
             <div className="card">
 	            <div className="card-header">
@@ -51,9 +42,8 @@ class UserList extends React.Component {
             		<div className="row">
             			<div className="col-md-12">
 			                <ServerSideTable
-			                	data={users}
-			                	columns={columns}
-			                	loading={isLoading}
+			                	api={'fetchUsers'}
+			                	columns={this.columns}
 			                />
             			</div>
             		</div>
@@ -64,9 +54,7 @@ class UserList extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    users:      state.users.users,
-    isLoading:    state.users.isLoading,
-    error:      state.users.hasError
+
 });
 
 export default connect(mapStateToProps)(UserList);

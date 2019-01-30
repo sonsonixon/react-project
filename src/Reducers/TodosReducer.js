@@ -1,21 +1,35 @@
 import {
+    UPDATE_USERID,
+    UPDATE_TITLE
+    /*
     CLEAR_STATE_TODO,
     CHANGE_USERID,
     CHANGE_TITLE,
     FETCH_FAILED,
     UPDATE_TODOS,
-} from '../Constants';
+    */
+} from '../ActionCreator';
 
 const initialState = {
     userid: '',
-    title: '',
-    error: null,
-    todos: []
+    title: ''
 };
 
 export default (state = initialState, action) => {
 
     switch(action.type) {
+        case UPDATE_USERID:
+            return { 
+                ...state, 
+                userid: action.payload.data 
+            };
+
+        case UPDATE_TITLE: 
+            return { 
+                ...state, 
+                title: action.payload.data 
+            };
+        /*
         case CLEAR_STATE_TODO:
             return {
                 ...state,
@@ -40,8 +54,9 @@ export default (state = initialState, action) => {
         case UPDATE_TODOS:
             return {
                 ...state,
-                todos: action.payload.data
+                todos: action.payload.data.rows
             };
+        */
         default:
             return state;
     }
