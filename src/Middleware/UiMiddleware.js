@@ -1,20 +1,23 @@
 import {
-	showFetchLoader,
-	voidTable
+	showFetchLoader
 } from '../Actions/UiActions';
 
 import {
 	fetchRequest
 } from './ApiMiddleware';
 
-/*
-export function handleErrors(errors) {
-	return function (dispatch) {
-		
+//import Swal from 'sweetalert2'
+
+export function handleValidationErrors(errors) {
+	return function() {
+		console.log(Object.keys(errors));
+		/*Object.keys(errors).map((key) => {
+			return console.log(errors[key]);
+		})*/
 	}
 }
-*/
-export function buildTable(url, pageSize, page) {
+
+export function createTable(url, pageSize, page) {
 	return function(dispatch) {
 		return dispatch(
 			showFetchLoader()
@@ -26,7 +29,7 @@ export function buildTable(url, pageSize, page) {
 
 export function destroyTable() {
 	return function(dispatch) {
-		dispatch(voidTable());
+		dispatch({ type: 'DESTROY_TABLE' });
 	}
 }
 		

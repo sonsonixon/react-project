@@ -7,7 +7,7 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
 import {
-    buildTable,
+    createTable,
     destroyTable
 } from '../Middleware/UiMiddleware';
 
@@ -18,7 +18,7 @@ class ServerSideTable extends Component {
     }
 
     fetchData(state, instance) {
-        this.props.buildTable(this.props.api, state.pageSize, state.page);
+        this.props.createTable(this.props.api, state.pageSize, state.page);
     }
 
     componentWillUnmount() {
@@ -53,7 +53,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    buildTable,
+    createTable,
     destroyTable
 }, dispatch)
 

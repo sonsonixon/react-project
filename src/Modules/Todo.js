@@ -1,42 +1,24 @@
 import React, { Component } from 'react';
-
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
 import { Link } from 'react-router-dom';
 
-// Functions from Middleware
-import {
-	getUserid,
-	getTitle
-	//addTodo,
-	//changeUserId,
-	//changeTitle,
-	//fetchTodos
-} from '../Middleware/TodosMiddleware';
-
 // Components
 import Card from '../Components/Card';
 import ServerSideTable from '../Components/ServerSideTable';
 
-//import classnames from 'classnames';
+// Forms
+import AddTodoForm from '../Components/Forms/AddTodoForm';
+
+import {
+	addTodo
+} from '../Middleware/TodosMiddleware';
 
 class Todo extends Component {
 	constructor(props){
 		super(props);
 
-		this.userid = null;
-		this.title = '';
-
-		// KeyUp
-		this.handleUseridChange = this.handleUseridChange.bind(this);
-		this.handleTitleChange = this.handleTitleChange.bind(this);
-
-		// FocusOut
-		this.getUserid = this.getUserid.bind(this);
-		this.getTitle = this.getTitle.bind(this);
-
-		// Submit
 		this.handleSubmit = this.handleSubmit.bind(this);
 
 		this.columns = [
@@ -81,35 +63,11 @@ class Todo extends Component {
             }]
 	}
 
-	handleSubmit(e) {
-		e.preventDefault();
-
-		console.log('Submitted')
-		//this.props.addTodo(this.props.userid, this.props.title);
-	}
-
-	handleUseridChange(e) {
-		e.preventDefault();
-		this.userid = e.target.value;
-	}
-
-	handleTitleChange(e) {
-		e.preventDefault();
-		this.title = e.target.value;
-	}
-
-	getUserid(e) {
-		e.preventDefault();
-		this.props.getUserid(this.userid);
-	}
-
-	getTitle(e) {
-		e.preventDefault();
-		this.props.getTitle(this.title);
+	handleSubmit(values) {
+		this.props.addTodo('addTodo', values);
 	}
 
 	render() {
-
 		/*
 		const {
 			processing,
@@ -136,45 +94,12 @@ class Todo extends Component {
 		return (
 			<div>
 	        	<Card cardTitle="ADD TODO" cardDescription="What to do today?">
-	        		<form>
-		                <div className="row">
-		                	<div className="col-md-6">
-		                      	<div className="form-group">
-			                        <label>Fake User ID:</label>
-			                        <input
-			                        	type="text"
-			                        	className="form-control"
-			                        	onChange={this.handleUseridChange}
-			                        	onBlur={this.getUserid}
-			                        />
-		                      	</div>
-		                    </div>
-		                    <div className="col-md-6">
-		                      	<div className="form-group">
-			                        <label>Title:</label>
-			                        <input
-			                        	type="text"
-			                        	className="form-control"
-			                        	onChange={this.handleTitleChange}
-			                        	onBlur={this.getTitle}
-			                        />
-		                      	</div>
-		                    </div>
-		                </div>
-		                <div className="row">
-		                	<div className="col-md-12">
-		                		<div className="form-group">
-		                			<button
-		                				onClick={this.handleSubmit}
-		                				type="button" 
-		                				className="btn btn-round btn-block btn-danger btn-fill"
-		                			>
-		                				Submit
-		                			</button>
-	                			</div>
-		                	</div>
-		                </div>
-	                </form>
+	        		<AddTodoForm 
+	        			onSubmit={this.handleSubmit}
+	        			mapProps={{
+						    valid: ({fieldValue}) => fieldValue.valid
+					  	}}
+	        		/>
 	        	</Card>
 	            <Card cardTitle="TODO LIST" cardDescription="Work! Work! Work!">
             	 	<ServerSideTable
@@ -188,34 +113,13 @@ class Todo extends Component {
 }
 
 const mapStateToProps = (state) => {
-	const input = state.ui.todos;
-	const ui = state.ui;
-	const todos = state.todos;
 	return {
-		/* ui states */
-
-		// post loader
-		processing: ui.isPosting,
-
-		// submit button
-		disabled: ui.isDisabled,
-
-		// input
-		validUserid: 	input.isValidUserid,
-		invalidUserid: 	input.isInvalidUserid,
-		validTitle: 	input.isValidTitle,
-		invalidTitle: 	input.isInvalidTitle,
-
-		// todos
-		userid: todos.userid,
-		title:  todos.title,
+		// states
 	}
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-	getUserid,
-	getTitle
-	//addTodo,
+	addTodo,
 	//changeUserId,
 	//changeTitle,
 	//fetchTodos

@@ -9,8 +9,13 @@ import {
 } from '../Actions/ApiActions';
 
 import {
-	hideFetchLoader
+	hideFetchLoader,
+	hidePostLoader,
 } from '../Actions/UiActions';
+
+import {
+	handleValidationErrors
+} from './UiMiddleware';
 
 import apiCreator from '../Services/Api';
  
@@ -19,7 +24,22 @@ const api = apiCreator.create();
 // POST
 export function postRequest(url, data) {
 	return function(dispatch) {
-		console.log('Dispatch Action');
+		dispatch(apiRequest()).then(() => {
+			api[url](data)
+			.then((res) => {
+				switch(res.data.code) {
+					case 'success':
+						console.log('handle success');
+						break;
+					case 'error':
+						//SubmissionError(res.data.errors)
+						break;
+					default:
+						// do nothing
+				}
+				dispatch(hidePostLoader());
+			})
+		})
 	}
 }
 
@@ -30,8 +50,8 @@ export function fetchRequest(url, pageSize, page) {
 			api[url](pageSize, page)
 			.then((res) => { 
 				dispatch(requestSuccess());
-				console.log('%c rows: ', 'color: red',  res.data.rows);
-				console.log('%c pages: ', 'color: green', res.data.pages);
+				//console.log('%c rows: ', 'color: red',  res.data.rows);
+				//console.log('%c pages: ', 'color: green', res.data.pages);
 				dispatch(updateTable(res.data)).then(() => {
 					dispatch(hideFetchLoader())
 				})
@@ -44,10 +64,12 @@ export function fetchRequest(url, pageSize, page) {
 	}
 }
 
+/*
 // Handle HTTP errors
 export function handleErrors(response) {
   	if (!response.ok) {
     	throw Error(response.statusText);
   	}
   	return response;
-}
+}*/
+

@@ -24,23 +24,19 @@ const create = () => {
       		'first_name': firstname,
       		'last_name': lastname,
       		'username': username
-        }, 
-        {
+        }, {
       		headers : {
           		'Accept': 'application/json'
             }
         });
 
-	const addTodo = (userid, title) => 
-		api.post('todos/add', {
-			'userid': userid,
-			'title': title
-		},
-		{
-			header: {
-				'Accept': 'application/json'
-			}
-		})
+	const addTodo = (data) => api.post('todos/add', {
+      		'data' : data
+        }, {
+      		headers : {
+          		'Accept': 'application/json'
+            }
+        })
 
 	const fetchTodos = (pageSize, page) => 
 		api.post('todos/fetch', {
