@@ -9,6 +9,7 @@ import {
 
 	// serverside table
 	BUILD_TABLE,
+	SAVE_TABLE,
 		
 } from '../ActionCreator';
 // fetch
@@ -38,5 +39,12 @@ export const updateTable = (data) => (dispatch) => Promise.resolve().then(() => 
 	return dispatch({
 		type: BUILD_TABLE,
 		payload: { data }
+	})
+})
+
+export const saveTable = (api, pageSize, page) => (dispatch) => Promise.resolve().then(() => {
+	return dispatch({
+		type: SAVE_TABLE,
+		payload: { api, pageSize, page }
 	})
 })

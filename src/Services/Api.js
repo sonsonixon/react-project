@@ -1,4 +1,4 @@
-import apisauce from 'apisauce'
+import apisauce from 'apisauce';
 
 const create = () => {
 
@@ -13,6 +13,7 @@ const create = () => {
 
 	})
 
+	/*
 	const fetchUsers = (pageSize, page) => 
 		api.post('users/fetch', {
 			'pageSize': pageSize,
@@ -29,6 +30,7 @@ const create = () => {
           		'Accept': 'application/json'
             }
         });
+	*/
 
 	const addTodo = (data) => api.post('todos/add', {
       		'data' : data
@@ -38,16 +40,19 @@ const create = () => {
             }
         })
 
-	const fetchTodos = (pageSize, page) => 
-		api.post('todos/fetch', {
-			'pageSize': pageSize, 
+	const fetchTodos = (pageSize, page) => api.post('todos/fetch', {
+			'pageSize': pageSize,
 			'page': page
-		});
+		}, {
+      		headers : {
+          		'Accept': 'application/json'
+            }
+        });
 
 	return {
 		baseURL,
-		fetchUsers,
-		createUser,
+		//fetchUsers,
+		//createUser,
 		addTodo,
 		fetchTodos,		
 	}

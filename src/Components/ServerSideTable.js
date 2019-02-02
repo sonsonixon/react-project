@@ -7,6 +7,10 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
 import {
+    saveTable
+} from '../Actions/UiActions';
+
+import {
     createTable,
     destroyTable
 } from '../Middleware/UiMiddleware';
@@ -18,43 +22,54 @@ class ServerSideTable extends Component {
     }
 
     fetchData(state, instance) {
-        this.props.createTable(this.props.api, state.pageSize, state.page);
+        this.props.saveTable(this.props.api, state.pageSize, state.page)
+        .then(() => {
+            this.props.createTable(this.props.url, this.props.pageSize, this.props.page);
+        })
     }
 
     componentWillUnmount() {
         this.props.destroyTable();
     }
 
-    render() {
+    render() {  
 
         const { data, pages, loading } = this.props;
 
         return (
             <div>
             	<ReactTable
-                    manual
-                	data={data}
-                	columns={this.props.columns}
-                	loading={loading}
-                    pages={pages}
-                    defaultPageSize={10}
-                	className="-highlight"
-                    onFetchData={this.fetchData}
+                    manual // handle settings on server
+                	data={data} //  table data
+                	columns={this.props.columns} // columns
+                	loading={loading} // loading
+                    pages={pages} // total pages
+                    defaultPageSize={10} // default page number size
+                	className="-highlight" // class
+                    onFetchData={this.fetchData} // refresh table on state change
                 />
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => ({
-    data: state.ui.data,
-    pages: state.ui.pages,
-    loading: state.ui.isFetching
-})
+const mapStateToProps = (state) => {
+    // call ui states as props
+    const ui = state.ui;
+    return {
+        data:       ui.data, // table data
+        pages:      ui.pages, // total pages
+        url:        ui.url, // api url
+        page:       ui.page, // current page number
+        pageSize:   ui.pageSize, // page size
+        loading:    ui.isFetching // fetch loader
+    }
+}
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    createTable,
-    destroyTable
+    saveTable, // save api url, page number and page size to redux state
+    createTable, // create table on page render
+    destroyTable // destroy table on component unmount
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ServerSideTable);

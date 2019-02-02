@@ -1,20 +1,21 @@
 import {
-	UPDATE_USERID,
-	UPDATE_TITLE
+	CLEAR_ERRORS,
+	HAS_ERROR_TITLE,
+	HAS_ERROR_USERID,
 } from '../ActionCreator';
 
-export const updateUserid = (data) => (dispatch) => Promise.resolve().then(() => {
-	return dispatch({
-		type: UPDATE_USERID,
-		payload: { data } 
+export const clearErrors = () => (dispatch) => Promise.resolve().then(() => {
+	return dispatch ({
+		type: CLEAR_ERRORS
 	})
 })
 
-export const updateTitle = (data) => (dispatch) => Promise.resolve().then(() => {
-	return dispatch({
-		type: UPDATE_TITLE,
-		payload: { data } 
-	})
+export const hasErrorTitle = () => ({
+	type: HAS_ERROR_TITLE
+})
+
+export const hasErrorUserId = () => ({
+	type: HAS_ERROR_USERID
 })
 
 /*

@@ -14,6 +14,7 @@ import {
 } from '../Actions/UiActions';
 
 import {
+	handleSuccess,
 	handleValidationErrors
 } from './UiMiddleware';
 
@@ -22,17 +23,17 @@ import apiCreator from '../Services/Api';
 const api = apiCreator.create();
 
 // POST
-export function postRequest(url, data) {
+export function postRequest(url, data, form) {
 	return function(dispatch) {
 		dispatch(apiRequest()).then(() => {
 			api[url](data)
 			.then((res) => {
 				switch(res.data.code) {
 					case 'success':
-						console.log('handle success');
+						dispatch(handleSuccess(res.data, form));
 						break;
 					case 'error':
-						//SubmissionError(res.data.errors)
+						dispatch(handleValidationErrors(res.data));
 						break;
 					default:
 						// do nothing

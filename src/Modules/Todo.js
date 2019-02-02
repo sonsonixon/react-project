@@ -64,7 +64,7 @@ class Todo extends Component {
 	}
 
 	handleSubmit(values) {
-		this.props.addTodo('addTodo', values);
+		this.props.addTodo('addTodo', values, 'addTodo');
 	}
 
 	render() {
@@ -96,9 +96,6 @@ class Todo extends Component {
 	        	<Card cardTitle="ADD TODO" cardDescription="What to do today?">
 	        		<AddTodoForm 
 	        			onSubmit={this.handleSubmit}
-	        			mapProps={{
-						    valid: ({fieldValue}) => fieldValue.valid
-					  	}}
 	        		/>
 	        	</Card>
 	            <Card cardTitle="TODO LIST" cardDescription="Work! Work! Work!">

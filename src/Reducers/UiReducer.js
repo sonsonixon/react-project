@@ -12,6 +12,11 @@ import {
     BUILD_TABLE,
     DESTROY_TABLE,
 
+    SAVE_TABLE,
+
+    // input class errors
+    
+
 } from '../ActionCreator';
 
 const initialState = {
@@ -24,12 +29,26 @@ const initialState = {
     // serverside table states
     data: [],
     pages: null,
+    page: '',
+    pageSize: '',
+    url: '',
+
+    // input errors
+    
 
 };
 
 export default (state = initialState, action) => {
 
     switch(action.type) {
+        case SAVE_TABLE:
+            return {
+                ...state,
+                page: action.payload.page,
+                pageSize: action.payload.pageSize,
+                url: action.payload.api
+            };
+
         // fetch
         case SHOW_FETCH_LOADER:
             return {
