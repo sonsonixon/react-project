@@ -15,7 +15,7 @@ import {
 export function handleTodosClassErrors(keys) {
 	return function (dispatch) {
 		return dispatch(
-			clearErrors()
+			clearErrors() // clear class states
 		)
 		.then(() => {
 			keys.forEach(key => {
