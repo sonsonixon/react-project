@@ -1,15 +1,11 @@
 import React, { Component  } from 'react';
 import { NavLink } from "react-router-dom";
 
-//import Collapse from './Collapse';
+import Collapse from './Collapse';
 import SidebarLink from './SidebarLink';
-//import CollapseLink from './CollapseLink';
+import CollapseLink from './CollapseLink';
 
 /*
-<Collapse to="/users" title="Users" icon="fa fa-fw fa-users" id="usersCollapse">
-	<CollapseLink to="/users/create" exact={true} icon="CU" title="Create User" />
-	<CollapseLink to="/users" exact={true} icon="L" title="List" />
-</Collapse>
 <SidebarLink to="/redux/counter" exact={true} icon="nc-icon nc-atom" title="Counter" />
 */
 
@@ -25,8 +21,11 @@ class Sidebar extends Component {
 	            <div className="sidebar-wrapper">
 	                <ul className="nav">
 	                 	<SidebarLink to="/" exact={true} icon="fa fa-fw fa-dashboard" title="Dashboard" />
-	                 	
-	                 	<SidebarLink to="/todos" exact={true} icon="nc-icon nc-time-alarm" title="Todos" />
+	                 	<Collapse to="/users" title="Users" icon="fa fa-fw fa-users" id="usersCollapse">
+							<CollapseLink to="/users/create" exact={true} icon="CU" title="Create User" />
+							<CollapseLink to="/users" exact={true} icon="L" title="List" />
+						</Collapse>
+	                 	<SidebarLink to="/todos" exact={false} icon="nc-icon nc-time-alarm" title="Todos" />
 	                </ul>
 	            </div>
 	        </div>

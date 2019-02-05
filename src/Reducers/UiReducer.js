@@ -11,11 +11,11 @@ import {
     // serverside table
     BUILD_TABLE,
     DESTROY_TABLE,
+    GET_TABLE_DATA,
 
-    SAVE_TABLE,
-
-    // input class errors
-    
+    // form
+    GET_CURRENT_FORM,
+    REMOVE_FORM,
 
 } from '../ActionCreator';
 
@@ -26,29 +26,21 @@ const initialState = {
     isUpdating: false,
     isDeleting: false,
 
+    // current form
+    currentForm: '',
+
     // serverside table states
     data: [],
     pages: null,
-    page: '',
-    pageSize: '',
-    url: '',
-
-    // input errors
-    
+    page: null,
+    pageSize: null,
+    url: null,
 
 };
 
 export default (state = initialState, action) => {
 
     switch(action.type) {
-        case SAVE_TABLE:
-            return {
-                ...state,
-                page: action.payload.page,
-                pageSize: action.payload.pageSize,
-                url: action.payload.api
-            };
-
         // fetch
         case SHOW_FETCH_LOADER:
             return {
@@ -71,7 +63,14 @@ export default (state = initialState, action) => {
                 ...state,
                 isPosting: false
             };
-
+        // save serverside table api url, page, and page size to redux state
+        case GET_TABLE_DATA:
+            return {
+                ...state,
+                page: action.payload.page,
+                pageSize: action.payload.pageSize,
+                url: action.payload.api
+            };
         // construct serverside table
         case BUILD_TABLE:
             return {
@@ -85,7 +84,22 @@ export default (state = initialState, action) => {
                 ...state,
                 data: [],
                 pages: null,
+                page: null,
+                pageSize: null,
+                url: null,
             };
+        // get current form
+        case GET_CURRENT_FORM:
+            return {
+                ...state,
+                currentForm: action.payload.form
+            };
+        // remove form
+        case REMOVE_FORM:
+            return {
+                ...state,
+                currentForm: '',
+            }
         
         default:
             return state;

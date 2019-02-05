@@ -1,5 +1,5 @@
 import {
-	updateTable
+	buildTable
 } from '../Actions/UiActions';
 
 import {
@@ -9,42 +9,60 @@ import {
 } from '../Actions/ApiActions';
 
 import {
+	showFetchLoader,
 	hideFetchLoader,
-	hidePostLoader,
 } from '../Actions/UiActions';
 
 import {
-	handleSuccess,
-	handleValidationErrors
+	handleResponse,
 } from './UiMiddleware';
 
 import apiCreator from '../Services/Api';
  
 const api = apiCreator.create();
 
-// POST
-export function postRequest(url, data, form) {
+// construct serverside table
+export function fetchTableData(url, pageSize, page) {
 	return function(dispatch) {
 		dispatch(apiRequest()).then(() => {
-			api[url](data)
+			dispatch(showFetchLoader());
+			api[url](pageSize, page)
 			.then((res) => {
-				switch(res.data.code) {
-					case 'success':
-						dispatch(handleSuccess(res.data, form));
-						break;
-					case 'error':
-						dispatch(handleValidationErrors(res.data));
-						break;
-					default:
-						// do nothing
-				}
-				dispatch(hidePostLoader());
+				dispatch(requestSuccess())
+				.then(() => {
+					dispatch(buildTable(res.data))
+					.then(() => {
+						dispatch(hideFetchLoader());
+					})					
+				})
+			})
+			.catch((err) => {
+				dispatch(requestFailed());
 			})
 		})
 	}
 }
 
-// FETCH
+// post request
+export function postRequest(url, data) {
+	return function(dispatch) {
+		dispatch(apiRequest()).then(() => {
+			api[url](data)
+			.then((res) => {
+				dispatch(requestSuccess())
+				.then(() => {
+					dispatch(handleResponse(res.data));
+				});				
+			})
+			.catch((err) => {
+				dispatch(requestFailed(err))
+			})
+		})
+	}
+}
+
+// fetch request
+/*
 export function fetchRequest(url, pageSize, page) {
 	return function(dispatch) {
 		dispatch(apiRequest()).then(() => {
@@ -64,13 +82,13 @@ export function fetchRequest(url, pageSize, page) {
 		})
 	}
 }
+*/
 
-/*
 // Handle HTTP errors
 export function handleErrors(response) {
   	if (!response.ok) {
     	throw Error(response.statusText);
   	}
   	return response;
-}*/
+}
 

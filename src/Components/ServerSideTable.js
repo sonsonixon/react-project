@@ -7,25 +7,26 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
 import {
-    saveTable
-} from '../Actions/UiActions';
-
-import {
-    createTable,
+    saveTableData,
+    renderTable,
     destroyTable
 } from '../Middleware/UiMiddleware';
 
 class ServerSideTable extends Component {
     constructor(props) {
         super(props);
+
         this.fetchData = this.fetchData.bind(this);
     }
 
     fetchData(state, instance) {
-        this.props.saveTable(this.props.api, state.pageSize, state.page)
+        // save api, pageSize and page to redux state
+        this.props.saveTableData(this.props.api, state.pageSize, state.page) 
         .then(() => {
-            this.props.createTable(this.props.url, this.props.pageSize, this.props.page);
+            // render table
+            this.props.renderTable(this.props.url, this.props.pageSize, this.props.page);
         })
+        
     }
 
     componentWillUnmount() {
@@ -67,8 +68,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    saveTable, // save api url, page number and page size to redux state
-    createTable, // create table on page render
+    saveTableData, // save api url, page number and page size to redux state
+    renderTable, // render table
     destroyTable // destroy table on component unmount
 }, dispatch)
 

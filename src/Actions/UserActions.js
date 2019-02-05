@@ -1,168 +1,149 @@
-// ACTION CONSTANTS
-import { FETCH_USERS_BEGIN, 
-         FETCH_USERS_SUCCESS,
-         FETCH_USERS_FAILURE,
-         GET_FIRSTNAME,
-         GET_MIDDLENAME,
-         GET_LASTNAME,
-         GET_USERNAME,
-         CREATE_USER_BEGIN,
-         CREATE_USER_SUCCESS,
-         CREATE_USER_FAIL,
-         CLEAR_USERS_STATE,
-         IS_VALID_FIRSTNAME,
-         IS_INVALID_FIRSTNAME
+import { 
+    CLEAR_USERS,
+    // first name
+    HAS_ERROR_FIRSTNAME,
+    HAS_SUCCESS_FIRSTNAME,
+    SET_ERROR_FIRSTNAME,
+    CLEAR_FIRSTNAME,
+    // middle name
+    HAS_ERROR_MIDDLENAME,
+    HAS_SUCCESS_MIDDLENAME,
+    SET_ERROR_MIDDLENAME,
+    CLEAR_MIDDLENAME,
+    // last name
+    HAS_ERROR_LASTNAME,
+    HAS_SUCCESS_LASTNAME,
+    SET_ERROR_LASTNAME,
+    CLEAR_LASTNAME,
+    // username
+    HAS_ERROR_USERNAME,
+    HAS_SUCCESS_USERNAME,
+    SET_ERROR_USERNAME,
+    CLEAR_USERNAME,
+    // password
+    HAS_ERROR_PASSWORD,
+    HAS_SUCCESS_PASSWORD,
+    SET_ERROR_PASSWORD,
+    CLEAR_PASSWORD,
+    // status
+    HAS_ERROR_STATUS,
+    HAS_SUCCESS_STATUS,
+    SET_ERROR_STATUS,
+    CLEAR_STATUS,
 } from '../ActionCreator';
 
-import apiCreator from '../Services/Api';
+export const clearUSERS = () => (dispatch) => Promise.resolve().then(() => {
+    return dispatch({
+        type: CLEAR_USERS
+    })
+})
 
-import swal from 'sweetalert2'
-
-const api = apiCreator.create();
-
-const toast = swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 6000,
-    allowEscapeKey: false,
+// first name
+export const hasErrorFIRSTNAME = () => ({
+    type: HAS_ERROR_FIRSTNAME
 });
 
-// FETCH
-export const fetchUsersBegin = () => ({
-	type: FETCH_USERS_BEGIN
+export const hasSuccessFIRSTNAME = () => ({
+    type: HAS_SUCCESS_FIRSTNAME
+})
+
+export const setErrorFIRSTNAME = (message) => ({
+    type: SET_ERROR_FIRSTNAME,
+    payload: { message }
+})
+
+export const clearFIRSTNAME = () => ({
+    type: CLEAR_FIRSTNAME
+})
+
+// middle name
+export const hasErrorMIDDLENAME = () => ({
+    type: HAS_ERROR_MIDDLENAME
 });
 
-export const fetchUsersSuccess = (data) => ({
-  	type: FETCH_USERS_SUCCESS,
-  	payload: { data }
+export const hasSuccessMIDDLENAME = () => ({
+    type: HAS_SUCCESS_MIDDLENAME
+})
+
+export const setErrorMIDDLENAME = (message) => ({
+    type: SET_ERROR_MIDDLENAME,
+    payload: { message }
+})
+
+export const clearMIDDLENAME = () => ({
+    type: CLEAR_MIDDLENAME
+})
+
+// last name
+export const hasErrorLASTNAME = () => ({
+    type: HAS_ERROR_LASTNAME
 });
 
-export const fetchUsersFailure = (error) => ({
-  	type: FETCH_USERS_FAILURE,
-  	payload: { error }
+export const hasSuccessLASTNAME = () => ({
+    type: HAS_SUCCESS_LASTNAME
+})
+
+export const setErrorLASTNAME = (message) => ({
+    type: SET_ERROR_LASTNAME,
+    payload: { message }
+})
+
+export const clearLASTNAME = () => ({
+    type: CLEAR_LASTNAME
+})
+
+// username
+export const hasErrorUSERNAME = () => ({
+    type: HAS_ERROR_USERNAME
 });
 
-// INPUT HANDLING
-export const getFirstname = (firstname) => ({
-    type: GET_FIRSTNAME,
-    payload: { firstname }
+export const hasSuccessUSERNAME = () => ({
+    type: HAS_SUCCESS_USERNAME
 })
 
-export const getMiddlename = (middlename) => ({
-    type: GET_MIDDLENAME,
-    payload: { middlename }
+export const setErrorUSERNAME = (message) => ({
+    type: SET_ERROR_USERNAME,
+    payload: { message }
 })
 
-export const getLastname = (lastname) => ({
-    type: GET_LASTNAME,
-    payload: { lastname }
+export const clearUSERNAME = () => ({
+    type: CLEAR_USERNAME
 })
 
-export const getUsername = (username) => ({
-    type: GET_USERNAME,
-    payload: { username }
+// password
+export const hasErrorPASSWORD = () => ({
+    type: HAS_ERROR_PASSWORD
+});
+
+export const hasSuccessPASSWORD = () => ({
+    type: HAS_SUCCESS_PASSWORD
 })
 
-// CREATE
-export const createUserBegin = () => ({
-    type: CREATE_USER_BEGIN
+export const setErrorPASSWORD = (message) => ({
+    type: SET_ERROR_PASSWORD,
+    payload: { message }
 })
 
-export const createUserSuccess = () => ({
-    type: CREATE_USER_SUCCESS
+export const clearPASSWORD = () => ({
+    type: CLEAR_PASSWORD
 })
 
-export const createUserFail = (error) => ({
-    type: CREATE_USER_FAIL,
-    payload: { error }
+// status
+export const hasErrorSTATUS = () => ({
+    type: HAS_ERROR_STATUS
+});
+
+export const hasSuccessSTATUS = () => ({
+    type: HAS_SUCCESS_STATUS
 })
 
-// CLEAR STATES
-export const clearUsersState = () => ({
-    type: CLEAR_USERS_STATE
+export const setErrorSTATUS = (message) => ({
+    type: SET_ERROR_STATUS,
+    payload: { message }
 })
 
-export const isValidFirstname = () => ({
-    type: IS_VALID_FIRSTNAME
+export const clearSTATUS = () => ({
+    type: CLEAR_STATUS
 })
 
-export const isInvalidFirstname = () => ({
-    type: IS_INVALID_FIRSTNAME
-})
 
-export function addClassFirstname(input) {
-    return dispatch => {
-        (input) ? dispatch(isValidFirstname()) : dispatch(isInvalidFirstname())
-    }
-}
-
-
-
-// FETCH ALL USERS
-export function fetchUsers() {
-  	return dispatch => {
-        dispatch(fetchUsersBegin());
-	   	api.fetch()
-        //.then(handleErrors)
-        .then((res) => {
-            return dispatch(fetchUsersSuccess(res.data));
-        })
-        .catch(error =>
-            dispatch(fetchUsersFailure(error))
-        );
-  	};
-}
-
-// CREATE NEW USER
-export function createUser(firstname, lastname, username) {
-    return dispatch => {
-        dispatch(createUserBegin());
-        setTimeout(() => {
-            api.createUser(firstname, lastname, username)
-            //.then(handleErrors)
-            .then((res) => {
-                dispatch(createUserSuccess());
-                if(res.data.code === 'success'){
-                    dispatch(clearUsersState());
-                    swal({
-                        title: 'Error!',
-                        text: 'Do you want to continue',
-                        type: 'success',
-                        confirmButtonText: 'Cool'
-                    })
-                    console.log(res.data);
-                }
-                else{
-                    
-                    let errors = res.data.errors;
-                    let errorMessage = '';
-
-                    // Map response object
-                    Object.keys(errors).forEach(key => {
-                        switch(key){
-                            case 'first_name':
-                                break;
-                            default:  
-                        }
-                        errors[key].forEach(message => 
-                            errorMessage += message + '<br/><br/>'
-                        );
-                    });
-
-                    // Show error messages on a toast notification
-                    toast({
-                        type:   'error',
-                        html:   '<b>' +
-                                    '<br/>' +
-                                    errorMessage +
-                                '</b>'
-                    });
-                }                
-            })
-            .catch(error => 
-                dispatch(createUserFail())
-            ); 
-        }, 2000);       
-    }
-}

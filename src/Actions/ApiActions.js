@@ -10,8 +10,10 @@ export const apiRequest = () => (dispatch) => Promise.resolve().then(() => {
 	})
 })
 
-export const requestSuccess = () => ({
-	type: REQUEST_SUCCESS
+export const requestSuccess = () => (dispatch) => Promise.resolve().then(() => {
+	return dispatch({
+		type: REQUEST_SUCCESS
+	})
 })
 
 export const requestFailed = () => ({

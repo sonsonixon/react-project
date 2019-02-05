@@ -9,7 +9,11 @@ import {
 
 	// serverside table
 	BUILD_TABLE,
-	SAVE_TABLE,
+	GET_TABLE_DATA,
+
+	// form
+	GET_CURRENT_FORM,
+	REMOVE_FORM,
 		
 } from '../ActionCreator';
 // fetch
@@ -35,16 +39,27 @@ export const hidePostLoader = () => ({
 })
 
 // build serverside table
-export const updateTable = (data) => (dispatch) => Promise.resolve().then(() => {
+export const buildTable = (data) => (dispatch) => Promise.resolve().then(() => {
 	return dispatch({
 		type: BUILD_TABLE,
 		payload: { data }
 	})
 })
 
-export const saveTable = (api, pageSize, page) => (dispatch) => Promise.resolve().then(() => {
+export const getTableData = (api, pageSize, page) => (dispatch) => Promise.resolve().then(() => {
 	return dispatch({
-		type: SAVE_TABLE,
+		type: GET_TABLE_DATA,
 		payload: { api, pageSize, page }
 	})
+})
+
+export const getCurrentForm = (form) => (dispatch) => Promise.resolve().then(() => {
+	return dispatch({
+		type: GET_CURRENT_FORM,
+		payload: { form }
+	})
+})
+
+export const removeForm = (form) => ({
+	type: REMOVE_FORM
 })

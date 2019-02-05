@@ -6,7 +6,7 @@ class Card extends Component {
             <div className="card">
             	<div className="card-header">
             		<h4 className="card-title">{this.props.cardTitle}</h4>
-            		<p>{this.props.cardDescription}</p>
+            		<p className="card-description">{this.props.cardDescription}</p>
             	</div>
             	<div className="card-body">
             		{this.props.children}

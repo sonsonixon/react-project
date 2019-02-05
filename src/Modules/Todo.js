@@ -15,12 +15,14 @@ import {
 	addTodo
 } from '../Middleware/TodosMiddleware';
 
+
+
 class Todo extends Component {
 	constructor(props){
 		super(props);
 
 		this.handleSubmit = this.handleSubmit.bind(this);
-
+    
 		this.columns = [
             {
     			Header: 'Title',
@@ -64,37 +66,14 @@ class Todo extends Component {
 	}
 
 	handleSubmit(values) {
-		this.props.addTodo('addTodo', values, 'addTodo');
+        this.props.addTodo('addTodo', values);
 	}
 
 	render() {
-		/*
-		const {
-			processing,
-			disabled,
-			validUserid,
-			invalidUserid,
-			validTitle,
-			invalidTitle,
-		} = this.props;
-
-		const useridClass = classnames({
-							  	'form-group': true,
-							  	'has-danger': !isValid_userid && isInvalid_userid,
-							  	'has-success': isValid_userid && !isInvalid_userid
-							})
-
-		const titleClass = classnames({
-								'form-group': true,
-							  	'has-danger': !isValid_title && isInvalid_title,
-							  	'has-success': isValid_title && !isInvalid_title
-							})
-		*/
-
 		return (
 			<div>
 	        	<Card cardTitle="ADD TODO" cardDescription="What to do today?">
-	        		<AddTodoForm 
+	        		<AddTodoForm
 	        			onSubmit={this.handleSubmit}
 	        		/>
 	        	</Card>
@@ -117,9 +96,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
 	addTodo,
-	//changeUserId,
-	//changeTitle,
-	//fetchTodos
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todo);

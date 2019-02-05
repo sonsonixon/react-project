@@ -3,28 +3,35 @@ import {
 } from './ApiMiddleware';
 
 import {
-	showPostLoader
+	showPostLoader,
 } from '../Actions/UiActions';
 
 import {
-	clearErrors,
-	hasErrorUserId,
+	clearClassTodos,
+	// userid
+	hasErrorUserid,
+	setErrorUserid,
+	// title
 	hasErrorTitle,
+	setErrorTitle,
 } from '../Actions/TodosActions';
 
-export function handleTodosClassErrors(keys) {
+export function handleErrorsTodos(data) {
 	return function (dispatch) {
 		return dispatch(
-			clearErrors() // clear class states
+			clearClassTodos() // clear class states
 		)
 		.then(() => {
-			keys.forEach(key => {
+			Object.keys(data).forEach(key => {
+				const message = data[key];
 				switch(key) {
 					case 'userid':
-						dispatch(hasErrorUserId());
+						dispatch(hasErrorUserid());
+						dispatch(setErrorUserid(message));
 						break;
 					case 'title':
 						dispatch(hasErrorTitle());
+						dispatch(setErrorTitle(message));
 						break;
 					default:
 						// do nothing
@@ -34,15 +41,19 @@ export function handleTodosClassErrors(keys) {
 	}
 }
 
-export function addTodo(url, data, form) {
+export function addTodo(url, data) {
 	return function(dispatch) {
 		return dispatch(
 			showPostLoader() // show post loader
 		).then(() => {
 			// set timeout to 2 seconds to simulate server latency
 			setTimeout(() => {
-				dispatch(postRequest(url, data, form)) // post data to api
+				dispatch(postRequest(url, data));
+				
 			}, 2000);
+		})
+		.then(() => {
+			dispatch(clearClassTodos());
 		})
 	}
 }

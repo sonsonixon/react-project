@@ -1,122 +1,360 @@
-/*
 import {
-    FETCH_USERS_BEGIN,
-    FETCH_USERS_SUCCESS,
-    FETCH_USERS_FAILURE,
-    GET_FIRSTNAME,
-    GET_MIDDLENAME,
-    GET_LASTNAME,
-    GET_USERNAME,
-    CREATE_USER,
-    CREATE_USER_BEGIN,
-    CREATE_USER_SUCCESS,
-    CREATE_USER_FAIL,
-    CLEAR_USERS_STATE,
-    IS_VALID_FIRSTNAME,
-    IS_INVALID_FIRSTNAME
-} from '../Constants';
+    CLEAR_USERS,
+    // firstname
+    HAS_ERROR_FIRSTNAME,
+    HAS_SUCCESS_FIRSTNAME,
+    SET_ERROR_FIRSTNAME,
+    CLEAR_FIRSTNAME,
+    // middle name
+    HAS_ERROR_MIDDLENAME,
+    HAS_SUCCESS_MIDDLENAME,
+    SET_ERROR_MIDDLENAME,
+    CLEAR_MIDDLENAME,
+    // last name
+    HAS_ERROR_LASTNAME,
+    HAS_SUCCESS_LASTNAME,
+    SET_ERROR_LASTNAME,
+    CLEAR_LASTNAME,
+    // username
+    HAS_ERROR_USERNAME,
+    HAS_SUCCESS_USERNAME,
+    SET_ERROR_USERNAME,
+    CLEAR_USERNAME,
+    // password
+    HAS_ERROR_PASSWORD,
+    HAS_SUCCESS_PASSWORD,
+    SET_ERROR_PASSWORD,
+    CLEAR_PASSWORD,
+    // status
+    HAS_ERROR_STATUS,
+    HAS_SUCCESS_STATUS,
+    SET_ERROR_STATUS,
+    CLEAR_STATUS,
+} from '../ActionCreator';
 
 const initialState = {
-    firstname: '',
-    firstnameStatus: 'form-group',
-    middlename: '',
-    lastname: '',
-    username: '',
-    users: [],
-    isLoading: false,
-    error: null,
+    firstname : {
+        hasError: false,
+        hasSuccess: false,
+        isValid: false,
+        errorMessage: '',
+    },
+    middlename: {
+        hasError: false,
+        hasSuccess: false,
+        isValid: false,
+        errorMessage: '',
+    },
+    lastname  : {
+        hasError: false,
+        hasSuccess: false,
+        isValid: false,
+        errorMessage: '',
+    },
+    username  : {
+        hasError: false,
+        hasSuccess: false,
+        isValid: false,
+        errorMessage: '',
+    },
+    password  : {
+        hasError: false,
+        hasSuccess: false,
+        isValid: false,
+        errorMessage: '',
+    },
+    status    : {
+        hasError: false,
+        hasSuccess: false,
+        isValid: false,
+        errorMessage: '',
+    },
+    role      : {
+        hasError: false,
+        hasSuccess: false,
+        isValid: false,
+        errorMessage: '',
+    }
 };
 
 export default (state = initialState, action) => {
 
     switch(action.type) {
-        // FETCH CASES
-        case FETCH_USERS_BEGIN:
+        // clear all changes in the states
+        case CLEAR_USERS:
             return {
                 ...state,
-                isLoading: true
+                firstname: {
+                    ...state.firstname,
+                    hasError: false,
+                    hasSuccess: false,
+                    isValid: false,
+                    errorMessage: '',
+                },
+                middlename: {
+                    ...state.middlename,
+                    hasError: false,
+                    hasSuccess: false,
+                    isValid: false,
+                    errorMessage: '',
+                },
+                lastname: {
+                    ...state.lastname,
+                    hasError: false,
+                    hasSuccess: false,
+                    isValid: false,
+                    errorMessage: '',
+                }
             };
-        case FETCH_USERS_SUCCESS:
+        // first name
+        case HAS_ERROR_FIRSTNAME:
             return {
                 ...state,
-                isLoading: false,
-                users: action.payload.data
+                firstname: {
+                    ...state.firstname,
+                    hasError: true,
+                    hasSuccess: false,
+                    isValid: false,
+                }
             };
-        case FETCH_USERS_FAILURE:
+        case HAS_SUCCESS_FIRSTNAME:
             return {
                 ...state,
-                isLoading: false,
-                error: action.payload.error,
-                users: []
+                firstname: {
+                    ...state.firstname,
+                    hasError: false,
+                    hasSuccess: true,
+                    isValid: true,
+                    errorMessage: '',
+                }
             };
-        // GET
-        case GET_FIRSTNAME:
+        case SET_ERROR_FIRSTNAME:
             return {
                 ...state,
-                firstname: action.payload.firstname
+                firstname: {
+                    ...state.firstname,
+                    errorMessage: action.payload.message,
+                }
             };
-        case GET_MIDDLENAME:
+        case CLEAR_FIRSTNAME:
             return {
                 ...state,
-                middlename: action.payload.middlename
+                firstname: {
+                    ...state.firstname,
+                    hasError: false,
+                    hasSuccess: false,
+                    isValid: false,
+                    errorMessage: ''
+                }
             };
-        case GET_LASTNAME:
+        // middle name
+        case HAS_ERROR_MIDDLENAME:
             return {
                 ...state,
-                lastname: action.payload.lastname
+                middlename: {
+                    ...state.middlename,
+                    hasError: true,
+                    hasSuccess: false,
+                    isValid: false,
+                }
             };
-        case GET_USERNAME:
+        case HAS_SUCCESS_MIDDLENAME:
             return {
                 ...state,
-                username: action.payload.username
+                middlename: {
+                    ...state.middlename,
+                    hasError: false,
+                    hasSuccess: true,
+                    isValid: true,
+                    errorMessage: '',
+                }
             };
-        // CREATE
-        case CREATE_USER_BEGIN:
+        case SET_ERROR_MIDDLENAME:
             return {
                 ...state,
-                isLoading: true,
-                firstnameHasError: false,
-                error: null
+                middlename: {
+                    ...state.middlename,
+                    errorMessage: action.payload.message,
+                }
             };
-        case CREATE_USER_SUCCESS:
+        case CLEAR_MIDDLENAME:
             return {
                 ...state,
-                isLoading: false,
-                hasError: false,
-                error: null
+                middlename: {
+                    ...state.middlename,
+                    hasError: false,
+                    hasSuccess: false,
+                    isValid: false,
+                    errorMessage: '',
+                }
             };
-        case CREATE_USER_FAIL:
+        // last name
+        case HAS_ERROR_LASTNAME:
             return {
                 ...state,
-                isLoading: false,
-                error: action.payload.error
+                lastname: {
+                    ...state.lastname,
+                    hasError: true,
+                    hasSuccess: false,
+                    isValid: false,
+                }
             };
-        case CREATE_USER:
-            return {
-                ...state
-            };
-        // CLEAR STATE
-        case CLEAR_USERS_STATE:
-            return {
-                ...state,
-                firstname: '',
-                middlename: '',
-                lastname: '',
-                username: ''
-            };
-        case IS_VALID_FIRSTNAME:
+        case HAS_SUCCESS_LASTNAME:
             return {
                 ...state,
-                firstnameStatus: 'form-group has-success'
+                lastname: {
+                    ...state.lastname,
+                    hasError: false,
+                    hasSuccess: true,
+                    isValid: true,
+                    errorMessage: '',
+                }
             };
-        case IS_INVALID_FIRSTNAME:
+        case SET_ERROR_LASTNAME:
             return {
                 ...state,
-                firstnameStatus: 'form-group has-danger'
+                lastname: {
+                    ...state.lastname,
+                    errorMessage: action.payload.message,
+                }
             };
+        case CLEAR_LASTNAME:
+            return {
+                ...state,
+                lastname: {
+                    ...state.lastname,
+                    hasError: false,
+                    hasSuccess: false,
+                    isValid: false,
+                    errorMessage: '',
+                }
+            };
+        // username
+        case HAS_ERROR_USERNAME:
+            return {
+                ...state,
+                username: {
+                    ...state.username,
+                    hasError: true,
+                    hasSuccess: false,
+                    isValid: false,
+                }
+            };
+        case HAS_SUCCESS_USERNAME:
+            return {
+                ...state,
+                username: {
+                    ...state.username,
+                    hasError: false,
+                    hasSuccess: true,
+                    isValid: true,
+                    errorMessage: '',
+                }
+            };
+        case SET_ERROR_USERNAME:
+            return {
+                ...state,
+                username: {
+                    ...state.username,
+                    errorMessage: action.payload.message,
+                }
+            };
+        case CLEAR_USERNAME:
+            return {
+                ...state,
+                username: {
+                    ...state.username,
+                    hasError: false,
+                    hasSuccess: false,
+                    isValid: false,
+                    errorMessage: '',
+                }
+            };
+        // password
+        case HAS_ERROR_PASSWORD:
+            return {
+                ...state,
+                password: {
+                    ...state.password,
+                    hasError: true,
+                    hasSuccess: false,
+                    isValid: false,
+                }
+            };
+        case HAS_SUCCESS_PASSWORD:
+            return {
+                ...state,
+                password: {
+                    ...state.password,
+                    hasError: false,
+                    hasSuccess: true,
+                    isValid: true,
+                    errorMessage: '',
+                }
+            };
+        case SET_ERROR_PASSWORD:
+            return {
+                ...state,
+                password: {
+                    ...state.password,
+                    errorMessage: action.payload.message,
+                }
+            };
+        case CLEAR_PASSWORD:
+            return {
+                ...state,
+                password: {
+                    ...state.password,
+                    hasError: false,
+                    hasSuccess: false,
+                    isValid: false,
+                    errorMessage: '',
+                }
+            };
+        // status
+        case HAS_ERROR_STATUS:
+            return {
+                ...state,
+                status: {
+                    ...state.status,
+                    hasError: true,
+                    hasSuccess: false,
+                    isValid: false,
+                }
+            };
+        case HAS_SUCCESS_STATUS:
+            return {
+                ...state,
+                status: {
+                    ...state.status,
+                    hasError: false,
+                    hasSuccess: true,
+                    isValid: true,
+                    errorMessage: '',
+                }
+            };
+        case SET_ERROR_STATUS:
+            return {
+                ...state,
+                status: {
+                    ...state.status,
+                    errorMessage: action.payload.message,
+                }
+            };
+        case CLEAR_STATUS:
+            return {
+                ...state,
+                status: {
+                    ...state.status,
+                    hasError: false,
+                    hasSuccess: false,
+                    isValid: false,
+                    errorMessage: '',
+                }
+            };
+        // default
         default:
             return state;
     }
 
 }
-*/

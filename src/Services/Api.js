@@ -19,18 +19,15 @@ const create = () => {
 			'pageSize': pageSize,
 			'page': page
 		});
+	*/
 
-	const createUser = (firstname, lastname, username) => 
-		api.post('users/create', {
-      		'first_name': firstname,
-      		'last_name': lastname,
-      		'username': username
+	const createUser = (data) => api.post('users/create', {
+			'data' : data
         }, {
       		headers : {
           		'Accept': 'application/json'
             }
         });
-	*/
 
 	const addTodo = (data) => api.post('todos/add', {
       		'data' : data
@@ -52,7 +49,7 @@ const create = () => {
 	return {
 		baseURL,
 		//fetchUsers,
-		//createUser,
+		createUser,
 		addTodo,
 		fetchTodos,		
 	}
