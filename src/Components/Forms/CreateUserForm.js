@@ -8,6 +8,11 @@ import { Field, reduxForm } from 'redux-form';
 import classnames from 'classnames';
 
 import {
+    saveCurrentForm,
+    clearForm,
+} from '../../Middleware/UiMiddleware';
+
+import {
 	// first name
 	hasSuccessFIRSTNAME,
 	clearFIRSTNAME,
@@ -26,6 +31,9 @@ import {
 	// status
 	hasSuccessSTATUS,
 	clearSTATUS,
+	// role
+	hasSuccessROLE,
+	clearROLE,
 } from '../../Actions/UserActions';
 
 class CreateUserForm extends Component {
@@ -38,6 +46,17 @@ class CreateUserForm extends Component {
 		this.handleOnBlurUSERNAME 	= this.handleOnBlurUSERNAME.bind(this);
 		this.handleOnBlurPASSWORD 	= this.handleOnBlurPASSWORD.bind(this);
 		this.handleOnBlurSTATUS 	= this.handleOnBlurSTATUS.bind(this);
+		this.handleOnBlurROLE 		= this.handleOnBlurROLE.bind(this);
+
+	}
+
+	componentDidMount() {
+		// save the form name on page render
+		this.props.saveCurrentForm('createUser');
+	}
+
+	componentWillUnmount() {
+		this.props.clearForm();
 	}
 
 	handleOnBlurFIRSTNAME(e) {
@@ -94,6 +113,15 @@ class CreateUserForm extends Component {
 		}
 	}
 
+	handleOnBlurROLE(e) {
+		let value = e.target.value;
+		if(value) {
+			this.props.hasSuccessROLE();
+		} else {
+			this.props.clearROLE();
+		}
+	}
+
 	render() {
 		const { 
 			handleSubmit, isPosting,
@@ -127,6 +155,11 @@ class CreateUserForm extends Component {
 			successSTATUS,
 			validSTATUS,
 			errorMessageSTATUS,
+			// role
+			errorROLE,
+			successROLE,
+			validROLE,
+			errorMessageROLE,
 
 		} = this.props
 
@@ -165,6 +198,13 @@ class CreateUserForm extends Component {
 			'has-danger' : !successSTATUS && errorSTATUS,
 			'has-success': successSTATUS  && !errorSTATUS,
 		})
+
+		const roleClass = classnames({
+			'form-group' : true,
+			'has-danger' : !successROLE && errorROLE,
+			'has-success': successROLE  && !errorROLE,
+		})
+
 
 		return (
 			<form onSubmit={ handleSubmit }>
@@ -229,46 +269,48 @@ class CreateUserForm extends Component {
 	                        <Field
 	                        	name="password"
 	                        	component="input"
-	                        	type="password"
+	                        	type="text"
 	                        	className="form-control"
 	                        	onBlur={this.handleOnBlurPASSWORD}
 	                        />
                       	</div>
-                      	<p className="text-danger"><strong>{errorMessagePASSWORD}</strong></p>
+                      	<span className="text-danger"><strong>{errorMessagePASSWORD}</strong></span>
                     </div>
                 </div>
                 <div className="row">
                 	<div className="col-md-4">
                       	<div className={statusClass}>
 	                        <label>ACCOUNT STATUS</label>
-	                        <Field
-	                        	name="status"
-	                        	component="select"
-	                        	type="password"
-	                        	className="form-control"
-	                        	onBlur={this.handleOnBlurSTATUS}
-	                        >
-	                        		<option value="">Select Status</option>
-								  	<option value="active">Active</option>
-								  	<option value="inactive">Inactive</option>
-	                        </Field>
+		                        <Field
+		                        	name="status"
+		                        	component="select"
+		                        	type="password"
+		                        	className="form-control"
+		                        	onBlur={this.handleOnBlurSTATUS}
+		                        >
+		                        		<option value="">Select Status</option>
+									  	<option value="active">Active</option>
+									  	<option value="inactive">Inactive</option>
+		                        </Field>
                       	</div>
                       	<p className="text-danger"><strong>{errorMessageSTATUS}</strong></p>
                     </div>
                     <div className="col-md-4">
-                      	<div className="form-group">
+                      	<div className={roleClass}>
 	                        <label>ROLE</label>
 	                        <Field
 	                        	name="role"
 	                        	component="select"
 	                        	type="password"
 	                        	className="form-control"
+	                        	onBlur={this.handleOnBlurROLE}
 	                        >
 	                        		<option value="">Select Role</option>
 	                        		<option value="admin">Admin</option>
 								  	<option value="user">User</option>								  	
 	                        </Field>
                       	</div>
+                      	<p className="text-danger"><strong>{errorMessageROLE}</strong></p>
                     </div>
                 </div>
                 <div className="row">
@@ -279,13 +321,10 @@ class CreateUserForm extends Component {
                 				type="submit"
                 				className="btn btn-round btn-block btn-danger btn-fill"
                 				disabled={  
-                					!validFIRSTNAME  || 
-                					!validMIDDLENAME ||
-                					!validLASTNAME   ||
-                					!validUSERNAME 	 ||
-                					!validPASSWORD 	 ||
-                					!validSTATUS 	 ||
-                					isPosting 
+                					!validFIRSTNAME  || !validMIDDLENAME ||
+                					!validLASTNAME   || !validUSERNAME 	 ||
+                					!validPASSWORD 	 || !validSTATUS 	 ||
+                					!validROLE		 || isPosting 
                 				}
                 			>
                 			{isPosting ? <i className="fa fa-fw fa-spinner fa-spin"></i> : 'Submit'}
@@ -306,6 +345,7 @@ const mapStateToProps = (state) => {
 	const username   = state.users.username;
 	const password   = state.users.password;
 	const status 	 = state.users.status;
+	const role 	 	 = state.users.role;
 	return {
 		// first name
 		errorFIRSTNAME  	 : firstname.hasError,
@@ -337,6 +377,11 @@ const mapStateToProps = (state) => {
 		successSTATUS 	  : status.hasSuccess,
 		validSTATUS  	  : status.isValid,
 		errorMessageSTATUS: status.errorMessage,
+		// role
+		errorROLE  	  	: role.hasError,
+		successROLE 	: role.hasSuccess,
+		validROLE  	  	: role.isValid,
+		errorMessageROLE: role.errorMessage,
 
 		// loader
 		isPosting : ui.isPosting,
@@ -344,6 +389,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
+	// ui
+	saveCurrentForm,
+    clearForm,
 	// first name
 	hasSuccessFIRSTNAME,
 	clearFIRSTNAME,
@@ -362,6 +410,9 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 	// status
 	hasSuccessSTATUS,
 	clearSTATUS,
+	// role
+	hasSuccessROLE,
+	clearROLE,
 }, dispatch)
 
 CreateUserForm = reduxForm({

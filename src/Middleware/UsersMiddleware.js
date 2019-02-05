@@ -26,6 +26,9 @@ import {
 	// status
 	hasErrorSTATUS,
 	setErrorSTATUS,
+	// role
+	hasErrorROLE,
+	setErrorROLE,
 } from '../Actions/UserActions';
 
 export function handleErrorsUSERS(data) {
@@ -57,6 +60,10 @@ export function handleErrorsUSERS(data) {
 					dispatch(hasErrorSTATUS());
 					dispatch(setErrorSTATUS(message));
 					break;
+				case 'role':
+					dispatch(hasErrorROLE());
+					dispatch(setErrorROLE(message));
+					break;
 				default:
 					// do nothing
 			}
@@ -71,8 +78,13 @@ export function createUser(url, data) {
 		)
 		.then(() => {
 			setTimeout(() => {
+				console.log('api request');
 				dispatch(postRequest(url, data));
 			}, 2000)
+		})
+		.then(() => {
+			console.log('clear states');
+			dispatch(clearUSERS());
 		})
 	}
 }

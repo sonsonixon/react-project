@@ -30,6 +30,11 @@ import {
     HAS_SUCCESS_STATUS,
     SET_ERROR_STATUS,
     CLEAR_STATUS,
+    // role
+    HAS_ERROR_ROLE,
+    HAS_SUCCESS_ROLE,
+    SET_ERROR_ROLE,
+    CLEAR_ROLE,
 } from '../ActionCreator';
 
 const initialState = {
@@ -346,6 +351,48 @@ export default (state = initialState, action) => {
                 ...state,
                 status: {
                     ...state.status,
+                    hasError: false,
+                    hasSuccess: false,
+                    isValid: false,
+                    errorMessage: '',
+                }
+            };
+        // role
+        // status
+        case HAS_ERROR_ROLE:
+            return {
+                ...state,
+                role: {
+                    ...state.role,
+                    hasError: true,
+                    hasSuccess: false,
+                    isValid: false,
+                }
+            };
+        case HAS_SUCCESS_ROLE:
+            return {
+                ...state,
+                role: {
+                    ...state.role,
+                    hasError: false,
+                    hasSuccess: true,
+                    isValid: true,
+                    errorMessage: '',
+                }
+            };
+        case SET_ERROR_ROLE:
+            return {
+                ...state,
+                role: {
+                    ...state.role,
+                    errorMessage: action.payload.message,
+                }
+            };
+        case CLEAR_ROLE:
+            return {
+                ...state,
+                role: {
+                    ...state.role,
                     hasError: false,
                     hasSuccess: false,
                     isValid: false,

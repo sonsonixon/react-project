@@ -30,6 +30,11 @@ import {
     HAS_SUCCESS_STATUS,
     SET_ERROR_STATUS,
     CLEAR_STATUS,
+    // role
+    HAS_ERROR_ROLE,
+    HAS_SUCCESS_ROLE,
+    SET_ERROR_ROLE,
+    CLEAR_ROLE,
 } from '../ActionCreator';
 
 export const clearUSERS = () => (dispatch) => Promise.resolve().then(() => {
@@ -144,6 +149,24 @@ export const setErrorSTATUS = (message) => ({
 
 export const clearSTATUS = () => ({
     type: CLEAR_STATUS
+})
+
+// role
+export const hasErrorROLE = () => ({
+    type: HAS_ERROR_ROLE
+});
+
+export const hasSuccessROLE = () => ({
+    type: HAS_SUCCESS_ROLE
+})
+
+export const setErrorROLE = (message) => ({
+    type: SET_ERROR_ROLE,
+    payload: { message }
+})
+
+export const clearROLE = () => ({
+    type: CLEAR_ROLE
 })
 
 

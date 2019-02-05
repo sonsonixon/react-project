@@ -52,8 +52,11 @@ export function handleResponse(data) {
 // handle successful api request
 export function handleSuccess(data) {
 	return function(dispatch) {
-		dispatch(showSuccessMessage(data)).then(() => {
+		dispatch(showSuccessMessage(data))
+		.then(() => {
 			dispatch(resetForm());
+		})
+		.then(() => {
 			dispatch(refreshTable());
 		})
 	}
