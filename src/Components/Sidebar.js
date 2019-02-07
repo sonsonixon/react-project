@@ -18,12 +18,12 @@ class Sidebar extends Component {
 	                    REACT PROJECT
 	                </NavLink>
 	            </div>
-	            <div className="sidebar-wrapper">
+	            <div className="sidebar-wrapper ps-container ps-theme-default">
 	                <ul className="nav">
 	                 	<SidebarLink to="/" exact={true} icon="fa fa-fw fa-dashboard" title="Dashboard" />
 	                 	<Collapse to="/users" title="Users" icon="fa fa-fw fa-users" id="usersCollapse">
-							<CollapseLink to="/users/create" exact={true} icon="CU" title="Create User" />
-							<CollapseLink to="/users" exact={true} icon="L" title="List" />
+							<CollapseLink to="/users/create" exact={true} icon="CU" title="CREATE USER" />
+							<CollapseLink to="/users" exact={true} icon="L" title="LIST" />
 						</Collapse>
 	                 	<SidebarLink to="/todos" exact={false} icon="nc-icon nc-time-alarm" title="Todos" />
 	                </ul>

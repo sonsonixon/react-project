@@ -13,13 +13,11 @@ const create = () => {
 
 	})
 
-	/*
 	const fetchUsers = (pageSize, page) => 
 		api.post('users/fetch', {
 			'pageSize': pageSize,
 			'page': page
 		});
-	*/
 
 	const createUser = (data) => api.post('users/create', {
 			'data' : data
@@ -48,7 +46,7 @@ const create = () => {
 
 	return {
 		baseURL,
-		//fetchUsers,
+		fetchUsers,
 		createUser,
 		addTodo,
 		fetchTodos,		

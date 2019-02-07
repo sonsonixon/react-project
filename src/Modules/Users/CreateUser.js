@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from 'redux'
 // components
 import Card from '../../Components/Card';
-// create user form
+// form
 import CreateUserForm from '../../Components/Forms/CreateUserForm';
 
 import {
@@ -24,7 +24,7 @@ class CreateUser extends Component {
 	render() {
 		return (
 			<div>
-				<Card cardTitle="CREATE USER" cardDescription="Create New User" >
+				<Card cardTitle="CREATE USER" cardDescription="Create New User">
 					<CreateUserForm onSubmit={this.handleSubmit} />
 				</Card>
 			</div>

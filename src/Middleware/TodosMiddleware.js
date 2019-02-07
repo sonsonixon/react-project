@@ -49,7 +49,6 @@ export function addTodo(url, data) {
 			// set timeout to 2 seconds to simulate server latency
 			setTimeout(() => {
 				dispatch(postRequest(url, data));
-				
 			}, 2000);
 		})
 		.then(() => {

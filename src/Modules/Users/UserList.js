@@ -27,8 +27,7 @@ class UserList extends React.Component {
             {
                 Header: 'Username',
                 accessor: 'username'
-            }
-        ]
+            }]
     }
     
     render() {

@@ -78,12 +78,10 @@ export function createUser(url, data) {
 		)
 		.then(() => {
 			setTimeout(() => {
-				console.log('api request');
 				dispatch(postRequest(url, data));
 			}, 2000)
 		})
 		.then(() => {
-			console.log('clear states');
 			dispatch(clearUSERS());
 		})
 	}
