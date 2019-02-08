@@ -1,34 +1,28 @@
 import React, { Component } from 'react';
 
+import LoginForm from '../Components/Forms/LoginForm';
+
 class Login extends Component {
+	constructor(props) {
+		super(props);
+
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+	
+	handleSubmit(values) {
+		console.log(values);
+	}
+	
     render() {
         return (
             <div className="col-lg-4 col-md-6 ml-auto mr-auto card-login">
             	<div className="card">
 	            	<div className="card-header text-center">
-	            		<h5 className="card-title">LOGIN</h5>
+	            		<img src="/assets/img/logo.svg" width="100" alt="Logo" />
 	            	</div>
 	            	<div className="card-body">
-	            		<div className="input-group">
-		                    <div className="input-group-prepend">
-		                      	<span className="input-group-text">
-		                        	<i className="nc-icon nc-single-02"></i>
-		                      	</span>
-		                    </div>
-		                    <input type="text" className="form-control" placeholder="First Name..." />
-	                  	</div>
-	                  	<div className="input-group">
-	                    	<div className="input-group-prepend">
-		                      	<span className="input-group-text">
-		                        	<i className="nc-icon nc-key-25"></i>
-		                      	</span>
-	                    	</div>
-	                    	<input type="password" placeholder="Password" className="form-control"/>
-	                  	</div>
+	            		<LoginForm onSubmit={this.handleSubmit} />
 	            	</div>
-	            	<div className="card-footer ">
-	                  	<button type="button" className="btn btn-warning btn-round btn-block mb-3">Login</button>
-	                </div>
 	            </div>
             </div>
         );

@@ -5,14 +5,16 @@ import CounterReducer from './CounterReducer';
 import UserReducer from './UserReducer';
 import TodosReducer from './TodosReducer';
 import UiReducer from './UiReducer';
+import LoginReducer from './LoginReducer';
 
 // Redux Form Reducer
-import { reducer as formReducer } from 'redux-form';
+import { reducer as FormReducer } from 'redux-form';
 
 export default combineReducers({
-	form: 	 formReducer,
-	ui: 	 UiReducer,
 	counter: CounterReducer,
-  	users: 	 UserReducer,
-  	todos: 	 TodosReducer
+	form: 	 FormReducer,
+	login: 	 LoginReducer,
+	users: 	 UserReducer,
+	todos: 	 TodosReducer,
+	ui: 	 UiReducer,  	
 });

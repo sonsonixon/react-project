@@ -13,6 +13,17 @@ const create = () => {
 
 	})
 
+	// login
+	const login = (data) =>
+		api.post('users/login', {
+			'data' : data
+		}, {
+			headers : {
+          		'Accept': 'application/json'
+            }
+		});
+
+	// users
 	const fetchUsers = (pageSize, page) => 
 		api.post('users/fetch', {
 			'pageSize': pageSize,
@@ -27,6 +38,8 @@ const create = () => {
             }
         });
 
+
+	// todos
 	const addTodo = (data) => api.post('todos/add', {
       		'data' : data
         }, {
@@ -46,6 +59,7 @@ const create = () => {
 
 	return {
 		baseURL,
+		login,
 		fetchUsers,
 		createUser,
 		addTodo,
