@@ -30,6 +30,7 @@ export function fetchTableData(url, pageSize, page) {
 			.then((res) => {
 				dispatch(requestSuccess())
 				.then(() => {
+					console.log(res.data);
 					dispatch(buildTable(res.data))
 					.then(() => {
 						dispatch(hideFetchLoader());

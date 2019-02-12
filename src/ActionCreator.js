@@ -78,3 +78,15 @@ export const HAS_ERROR_ROLE   = '[USERS] HAS_ERROR_ROLE';
 export const HAS_SUCCESS_ROLE = '[USERS] HAS_SUCCESS_ROLE';
 export const SET_ERROR_ROLE   = '[USERS] SET_ERROR_ROLE';
 export const CLEAR_ROLE 	  = '[USERS] CLEAR_ROLE';
+
+// login
+export const IS_VALID_USERNAME 	 = '[LOGIN] IS_VALID_USERNAME';
+export const IS_VALID_PASSWORD 	 = '[LOGIN] IS_VALID_PASSWORD';
+export const IS_INVALID_USERNAME = '[LOGIN] IS_INVALID_USERNAME';
+export const IS_INVALID_PASSWORD = '[LOGIN] IS_INVALID_PASSWORD';
+
+export const IS_SUBMITTING  	 = '[LOGIN] IS_SUBMITTING';
+export const IS_SUBMITTED 		 = '[LOGIN] IS_SUBMITTED';
+
+export const LOGIN_ERROR 	   	 = '[LOGIN] LOGIN_ERROR';
+export const LOGIN_SUCCESS 	   	 = '[LOGIN] LOGIN_SUCCESS';

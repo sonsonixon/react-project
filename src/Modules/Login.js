@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import LoginForm from '../Components/Forms/LoginForm';
+
+import {
+	login
+} from '../Middleware/LoginMiddleware';
 
 class Login extends Component {
 	constructor(props) {
@@ -10,7 +16,7 @@ class Login extends Component {
 	}
 	
 	handleSubmit(values) {
-		console.log(values);
+		this.props.login(values);
 	}
 	
     render() {
@@ -29,4 +35,14 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+	return {
+
+	}
+}
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+	login
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

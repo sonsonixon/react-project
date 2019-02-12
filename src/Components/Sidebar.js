@@ -12,13 +12,13 @@ import CollapseLink from './CollapseLink';
 class Sidebar extends Component {
     render() {
         return (
-        	<div className="sidebar" data-color="black" data-active-color="danger">
+        	<div className="sidebar" data-color="brown" data-active-color="danger">
 	            <div className="logo text-center">
                 	<NavLink to="/" className="simple-text logo-normal">
 	                    REACT PROJECT
 	                </NavLink>
 	            </div>
-	            <div className="sidebar-wrapper ps-container ps-theme-default">
+	            <div className="sidebar-wrapper ps-container ps-theme-default ps-active-x ps-active-y">
 	                <ul className="nav">
 	                 	<SidebarLink to="/" exact={true} icon="fa fa-fw fa-dashboard" title="Dashboard" />
 	                 	<Collapse to="/users" title="Users" icon="fa fa-fw fa-users" id="usersCollapse">

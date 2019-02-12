@@ -4,6 +4,14 @@ import { bindActionCreators } from 'redux';
 
 import { Field, reduxForm } from 'redux-form';
 
+// Actions
+import {
+	isValidUSERNAME,
+	isValidPASSWORD,
+	isInvalidUSERNAME,
+	isInvalidPASSWORD,
+} from '../../Actions/LoginActions';
+
 class LoginForm extends Component {
 	constructor(props) {
 		super(props);
@@ -13,16 +21,30 @@ class LoginForm extends Component {
 	}
 
 	handleOnBlurUSERNAME(e) {
-		console.log(e.target.value);
+		let username = e.target.value;
+		if(username) {
+			this.props.isValidUSERNAME();
+		} else {
+			this.props.isInvalidUSERNAME();
+		}
 	}
 
 	handleOnBlurPASSWORD(e) {
-		console.log(e.target.value);
+		let password = e.target.value;
+		if(password) {
+			this.props.isValidPASSWORD();
+		} else {
+			this.props.isInvalidPASSWORD();
+		}
 	}
 
 	render() {
 
-		const { handleSubmit } = this.props;
+		const { 
+			handleSubmit, isLoggingIn,
+			validUSERNAME,
+			validPASSWORD,
+		} = this.props;
 
 		return (
 			<form onSubmit={ handleSubmit }>
@@ -57,11 +79,26 @@ class LoginForm extends Component {
 					/>
 				</div>
 				<div className="form-group pt-3">
+                    <div className="form-check">
+                      	<label className="form-check-label">
+	                        <Field 
+	                        	name="rememberPassword"
+	                        	component="input"
+	                        	type="checkbox"
+	                        	className="form-check-input" 
+	                        />
+	                        <span className="form-check-sign"></span>
+	                        Remember password
+                      	</label>
+                    </div>
+              	</div>
+				<div className="form-group pt-3">
 					<button 
 						type="submit" 
 						className="btn btn-danger btn-round btn-block mb-3"
+						disabled={ !validUSERNAME || !validPASSWORD || isLoggingIn }
 					>
-						Login
+						{isLoggingIn ? <i className="fa fa-fw fa-spin fa-spinner"></i> : 'Login'}
 					</button>
 				</div>
 			</form>
@@ -70,13 +107,22 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-	return {
+	const username = state.login.username;
+	const password = state.login.password;
+	const login = state.login;
 
+	return {
+		isLoggingIn: login.isLoggingIn,
+		validUSERNAME: username.isValid,
+		validPASSWORD: password.isValid,
 	}
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-
+	isValidUSERNAME,
+	isValidPASSWORD,
+	isInvalidUSERNAME,
+	isInvalidPASSWORD,
 }, dispatch)
 
 LoginForm = reduxForm({
