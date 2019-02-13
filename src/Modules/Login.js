@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import { withRouter } from 'react-router-dom';
 import LoginForm from '../Components/Forms/LoginForm';
 
 import {
@@ -11,8 +11,14 @@ import {
 class Login extends Component {
 	constructor(props) {
 		super(props);
-
 		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	componentDidMount() {
+		/*let user = localStorage.getItem('user');
+		if(user) {
+			this.props.history.push('/');
+		}*/
 	}
 	
 	handleSubmit(values) {
@@ -45,4 +51,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 	login
 }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

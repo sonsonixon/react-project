@@ -5,6 +5,8 @@
   "dependencies": {
     "apisauce": "^1.0.2",
     "classnames": "^2.2.6",
+    "connected-react-router": "^6.3.1",
+    "history": "^4.7.2",
     "mo-js": "^0.288.2",
     "noty": "^3.2.0-beta",
     "prop-types": "^15.6.2",

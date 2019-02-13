@@ -76,7 +76,7 @@ export function resetForm() {
 
 // show success message
 export function showSuccessMessage(message) {
-	return function(dispatch) {
+	return function() {
 		const successMessage = swal({
 		  	title 			  : message.title,
 		  	text 			  : message.message,
@@ -84,7 +84,6 @@ export function showSuccessMessage(message) {
 		  	confirmButtonColor: '#3085d6',
 		  	confirmButtonText : 'Yes, Got it!'
 		})
-
 		return successMessage;
 	}
 }

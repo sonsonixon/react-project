@@ -8,6 +8,7 @@ const create = () => {
 
 		baseURL,
 		headers: {
+			'Access-Control-Allow-Origin' : '*',
 			'Cache-Control': 'no-cache'
 		}
 

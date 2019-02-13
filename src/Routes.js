@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 // react router
 import { BrowserRouter as Router, 
 		 Route, 
-		 Switch
+		 Switch,
+         Redirect
 } from "react-router-dom";
 // provider
 import { Provider } from 'react-redux'
 // redux store
-import Store from './Store/store';
+import Store, { history } from './Store/store';
 
-// main container
+// container
 import Main from './Containers/Main';
 import Outline from './Containers/Outline';
 
@@ -20,12 +21,34 @@ import Dashboard  from './Modules/Dashboard';
 import Todo 	  from './Modules/Todo';
 import Login from './Modules/Login';
 
-const AppRoute =({ component: Component, layout: Layout, ...rest }) => (
-	<Route {...rest} render={props => (
-	    <Layout>
-	      	<Component {...props} />
-	    </Layout>
-  	)} />
+// connected react router
+import { ConnectedRouter } from 'connected-react-router'
+
+const user = localStorage.getItem('user');
+
+const PrivateRoute = ({ component: Component, layout: Layout, ...rest }) => (
+	<Route 
+        {...rest} 
+        render={props => user ? (
+            <Layout>
+                <Component {...props} />
+            </Layout>
+        ) : (
+            <Redirect to="/login" />
+        )}
+    />
+)
+
+
+const PublicRoute = ({ component: Component, layout: Layout, ...rest }) => (
+    <Route 
+        {...rest}
+        render={props => (
+            <Layout>
+                <Component {...props} />
+            </Layout>
+        )}
+    />
 )
 
 class Routes extends Component {
@@ -33,13 +56,16 @@ class Routes extends Component {
         return (
         	<Router>
         		<Provider store={Store}>
-        			<Switch>
-    					<AppRoute exact path="/" layout={Main} component={Dashboard} />
-    					<AppRoute exact path="/users/create" layout={Main} component={CreateUser} />
-    					<AppRoute exact path="/users" layout={Main} component={UserList} />
-    					<AppRoute exact path="/todos" layout={Main} component={Todo} />
-  						<AppRoute exact path="/login" layout={Outline} component={Login} />
-	            	</Switch>   					  			
+                    <ConnectedRouter history={history}>
+            			<Switch>
+        					<PrivateRoute exact={true} path="/" layout={Main} component={Dashboard} />
+        					<PrivateRoute path="/users/create" layout={Main} component={CreateUser} />
+        					<PrivateRoute path="/users" layout={Main} component={UserList} />
+        					<PrivateRoute path="/todos" layout={Main} component={Todo} />
+      						<PublicRoute path="/login" layout={Outline} component={Login} />
+                            <Redirect to="/"  />
+    	            	</Switch>
+                    </ConnectedRouter>  					  			
 		        </Provider>
 	        </Router>
         );

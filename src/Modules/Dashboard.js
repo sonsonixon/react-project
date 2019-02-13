@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class Dashboard extends Component {
+
+    componentDidMount() {
+        /*let user = localStorage.getItem('user');
+        if(!user) {
+            this.props.history.push('/login');
+        }
+
+        console.log(this.props.location);*/
+    }
 
     render() {
         return (
@@ -22,4 +32,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default withRouter(connect(mapStateToProps)(Dashboard));
