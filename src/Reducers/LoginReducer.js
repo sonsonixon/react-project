@@ -1,4 +1,5 @@
 import {
+    AUTHENTICATE,
     IS_SUBMITTING,
     IS_SUBMITTED,
     IS_VALID_USERNAME,
@@ -8,6 +9,8 @@ import {
 } from '../ActionCreator';
 
 const initialState = {
+    isAuthenticated: false,
+    user: null,
     isLoggingIn: false,
     username: {
         isValid: false,
@@ -20,6 +23,12 @@ const initialState = {
 export default (state = initialState, action) => {
 
     switch(action.type) {
+        case AUTHENTICATE:
+            return {
+                ...state,
+                isAuthenticated: true,
+                user: action.payload.user,
+            };
         case IS_SUBMITTING:
             return {
                 ...state,

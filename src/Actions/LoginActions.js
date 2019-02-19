@@ -1,4 +1,5 @@
 import {
+	AUTHENTICATE,
 	IS_SUBMITTING,
 	IS_SUBMITTED,
 	IS_VALID_USERNAME,
@@ -9,7 +10,14 @@ import {
 
 export const isSubmitting = () => (dispatch) => Promise.resolve().then(() => {
 	return dispatch({
-		type: IS_SUBMITTING
+		type: IS_SUBMITTING,
+	})
+})
+
+export const authenticate = (user) => (dispatch) => Promise.resolve().then(() => {
+	return dispatch({
+		type: AUTHENTICATE,
+		payload: { user }
 	})
 })
 

@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 
 // Components
-import Routes from './Routes';
+import MainRoute from './Routes/MainRoute';
 
 class App extends Component {
     render() {
         return (
-            <Routes />
+            <MainRoute />
         );
     }
 }

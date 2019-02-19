@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+// react router
 import { Link } from "react-router-dom";
 
 class Navbar extends Component {
     render() {
+        const userData = JSON.parse(localStorage.getItem('user'));
+        const { first_name, last_name } = userData;
         return (
             <nav className="navbar navbar-expand-lg navbar-absolute fixed-top bg-danger">
                 <div className="container-fluid">
@@ -14,10 +17,9 @@ class Navbar extends Component {
                                 <span className="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <small>
-                        	Welcome: Sonson Ixon | Information Technology | Technical Support <br/>
-                        	INTEGRATING HTML TEMPLATE TO REACT
-                        </small>
+                        <p>
+                        	Welcome: { first_name + ' ' + last_name }
+                        </p>
                     </div>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-bar navbar-kebab"></span>

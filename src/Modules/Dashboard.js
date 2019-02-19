@@ -4,15 +4,6 @@ import { withRouter } from 'react-router-dom';
 
 class Dashboard extends Component {
 
-    componentDidMount() {
-        /*let user = localStorage.getItem('user');
-        if(!user) {
-            this.props.history.push('/login');
-        }
-
-        console.log(this.props.location);*/
-    }
-
     render() {
         return (
         	<div className="text-center">
