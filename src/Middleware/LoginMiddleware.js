@@ -1,5 +1,6 @@
 // actions
 import {
+	authenticate,
 	isSubmitting,
 	isSubmitted,
 } from '../Actions/LoginActions';
@@ -14,17 +15,21 @@ const api = apiCreator.create();
 export function login(data) {
 	return function(dispatch) {
 		return dispatch(
+			// submitting
 			isSubmitting()
 		)
 		.then(() => {
+			// api request -> login
 			api.login(data)
 			.then((res) => {
 				let code = res.data.code;
 				switch(code) {
 					case 'error':
+						// login error
 						dispatch(handleLoginError(res.data));
 						break;
 					case 'success':
+						// login success
 						dispatch(handleLoginSuccess(res.data));
 						break;
 					default:
@@ -32,15 +37,20 @@ export function login(data) {
 				}
 			})
 			.then(() => {
-				dispatch(isSubmitted());
+				// sumitted
+				dispatch(isSubmitted())
+				.then(() => {
+					// redirect
+					dispatch(handleRedirect('/'));
+				})
 			})
 		})
 	}
 }
 
-function handleRedirect() {
+function handleRedirect(location) {
 	return function(dispatch) {
-		dispatch(push('/'));
+		dispatch(push(location));
 	}
 }
 
@@ -48,7 +58,7 @@ function handleLoginSuccess(user) {
 	return function(dispatch) {
 		localStorage.setItem('user', JSON.stringify(user.data));
         localStorage.setItem('token', user.token);
-        dispatch(handleRedirect());
+        dispatch(authenticate(user.data));
 	}
 }
 
@@ -62,11 +72,11 @@ function handleLoginError(data) {
 
 function showLoginErrorMessage(error) {
 	return function() {
-		const LoginErrorMessage = swal({
+		const errorMessage = swal({
 		  	title 	: error.title,
 		  	text 	: error.message,
 		  	type 	: 'error',
 		})
-		return LoginErrorMessage;
+		return errorMessage;
 	}
 }

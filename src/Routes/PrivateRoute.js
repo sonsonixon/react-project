@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
+// redux
+import { connect } from 'react-redux';
 // react router
 import { Route, Redirect } from 'react-router-dom';
 
-const PrivateRoute = ({ component: Component, layout: Layout, ...rest }) => {
-	const userData = localStorage.getItem('user');
+class PrivateRoute extends Component {
+
+	render() {
+		const { layout: Layout, component: Component, isAuthenticated, ...rest } = this.props;
+		console.log(isAuthenticated);
+		return (
+			<Route {...rest} render={(props) => (
+				isAuthenticated ? ( 
+					<Layout>
+			            <Component />
+			        </Layout>
+			    ) : (
+			    	<Redirect to="/login" />
+			    )
+		    )}/>
+		)
+	}
+
+}
+
+/*const PrivateRoute = ({ component: Component, layout: Layout, isAuthenticated, ...rest }) => {
+	console.log(isAuthenticated)
 	return (
 		<Route {...rest} render={(props) => (
-			userData ? (
+			isAuthenticated ? (
 		        <Layout>
 		            <Component {...props} />
 		        </Layout>
@@ -16,5 +38,12 @@ const PrivateRoute = ({ component: Component, layout: Layout, ...rest }) => {
 		)}/>
 	)
 }
+*/
+const mapStateToProps = (state) => {
+	const login = state.login;
+	return {
+		isAuthenticated: login.isAuthenticated,
+	}
+}
 
-export default PrivateRoute;
+export default connect(mapStateToProps)(PrivateRoute);

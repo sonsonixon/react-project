@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+// redux
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+
 
 class Dashboard extends Component {
-
     render() {
         return (
         	<div className="text-center">
@@ -16,11 +17,13 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const ui = state.ui;
     return {
-        form: ui.form,
-        url: ui.url
+
     }
 }
 
-export default withRouter(connect(mapStateToProps)(Dashboard));
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

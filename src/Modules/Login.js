@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import LoginForm from '../Components/Forms/LoginForm';
 
 import {
-	login
+	login,
 } from '../Middleware/LoginMiddleware';
 
 class Login extends Component {
@@ -40,7 +40,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-	login
+	login,
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

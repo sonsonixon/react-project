@@ -21,8 +21,10 @@ export const authenticate = (user) => (dispatch) => Promise.resolve().then(() =>
 	})
 })
 
-export const isSubmitted = () => ({
-	type: IS_SUBMITTED
+export const isSubmitted = () => (dispatch) => Promise.resolve().then(() => {
+	return dispatch({
+		type: IS_SUBMITTED,
+	})
 })
 
 export const isValidUSERNAME = () => ({
