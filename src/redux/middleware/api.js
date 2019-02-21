@@ -1,23 +1,20 @@
 import {
-	buildTable
-} from '../Actions/UiActions';
-
-import {
 	apiRequest,
 	requestSuccess,
 	requestFailed
-} from '../Actions/ApiActions';
+} from '../actions/api';
 
 import {
+	buildTable,
 	showFetchLoader,
 	hideFetchLoader,
-} from '../Actions/UiActions';
+} from '../actions/ui';
 
 import {
 	handleResponse,
-} from './UiMiddleware';
+} from './ui';
 
-import apiCreator from '../Services/Api';
+import apiCreator from '../../services/api';
  
 const api = apiCreator.create();
 

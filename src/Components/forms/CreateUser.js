@@ -10,7 +10,7 @@ import classnames from 'classnames';
 import {
     saveCurrentForm,
     clearForm,
-} from '../../Middleware/UiMiddleware';
+} from '../../redux/middleware/ui';
 
 import {
 	// first name
@@ -34,7 +34,7 @@ import {
 	// role
 	hasSuccessROLE,
 	clearROLE,
-} from '../../Actions/UserActions';
+} from '../../redux/actions/users';
 
 class CreateUserForm extends Component {
 	constructor(props) {

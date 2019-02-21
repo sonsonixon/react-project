@@ -2,7 +2,7 @@ import {
 	API_REQUEST,
 	REQUEST_SUCCESS,
 	REQUEST_FAILED
-} from '../ActionCreator';
+} from '../actionCreator/';
 
 export const apiRequest = () => (dispatch) => Promise.resolve().then(() => {
 	return dispatch({

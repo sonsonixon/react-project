@@ -5,15 +5,15 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
 // Components
-import Card from '../Components/Card';
-import ServerSideTable from '../Components/ServerSideTable';
+import Card from '../components/Card';
+import ServerSideTable from '../components/ServerSideTable';
 
 // Forms
-import AddTodoForm from '../Components/Forms/AddTodoForm';
+import AddTodoForm from '../components/forms/AddTodo';
 
 import {
 	addTodo
-} from '../Middleware/TodosMiddleware';
+} from '../redux/middleware/todos';
 
 
 

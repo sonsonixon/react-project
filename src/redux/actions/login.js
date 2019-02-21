@@ -6,7 +6,7 @@ import {
 	IS_VALID_PASSWORD,
 	IS_INVALID_USERNAME,
 	IS_INVALID_PASSWORD,
-} from '../ActionCreator';
+} from '../actionCreator/';
 
 export const isSubmitting = () => (dispatch) => Promise.resolve().then(() => {
 	return dispatch({
@@ -14,10 +14,10 @@ export const isSubmitting = () => (dispatch) => Promise.resolve().then(() => {
 	})
 })
 
-export const authenticate = (user) => (dispatch) => Promise.resolve().then(() => {
+export const authenticate = (user, token) => (dispatch) => Promise.resolve().then(() => {
 	return dispatch({
 		type: AUTHENTICATE,
-		payload: { user }
+		payload: { user, token }
 	})
 })
 

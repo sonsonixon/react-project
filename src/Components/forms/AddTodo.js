@@ -11,14 +11,14 @@ import {
 	hasSuccessTitle,
 	isValidTitle,
 	clearTitle,
-} from '../../Actions/TodosActions';
+} from '../../redux/actions/todos';
 
 import classnames from 'classnames';
 
 import {
     saveCurrentForm,
     clearForm
-} from '../../Middleware/UiMiddleware';
+} from '../../redux/middleware/ui';
 
 class AddTodoForm extends Component {
 	constructor(props) {

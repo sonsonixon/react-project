@@ -11,13 +11,13 @@ class PrivateRoute extends Component {
 		console.log(isAuthenticated);
 		return (
 			<Route {...rest} render={(props) => (
-				isAuthenticated ? ( 
-					<Layout>
+				isAuthenticated ? (
+					 <Layout>
 			            <Component />
 			        </Layout>
-			    ) : (
-			    	<Redirect to="/login" />
-			    )
+				) : (
+					<Redirect to="/login" />
+				)
 		    )}/>
 		)
 	}
@@ -39,6 +39,7 @@ class PrivateRoute extends Component {
 	)
 }
 */
+
 const mapStateToProps = (state) => {
 	const login = state.login;
 	return {

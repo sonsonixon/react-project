@@ -3,9 +3,11 @@ import {
 	authenticate,
 	isSubmitting,
 	isSubmitted,
-} from '../Actions/LoginActions';
+} from '../actions/login';
 
-import apiCreator from '../Services/Api';
+// api sauce
+import apiCreator from '../../services/api';
+
 import swal from 'sweetalert2';
 
 import { push } from 'connected-react-router';
@@ -56,9 +58,7 @@ function handleRedirect(location) {
 
 function handleLoginSuccess(user) {
 	return function(dispatch) {
-		localStorage.setItem('user', JSON.stringify(user.data));
-        localStorage.setItem('token', user.token);
-        dispatch(authenticate(user.data));
+		dispatch(authenticate(user.data, user.token));
 	}
 }
 

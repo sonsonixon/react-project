@@ -10,7 +10,7 @@ import {
 	isValidPASSWORD,
 	isInvalidUSERNAME,
 	isInvalidPASSWORD,
-} from '../../Actions/LoginActions';
+} from '../../redux/actions/login';
 
 class LoginForm extends Component {
 	constructor(props) {

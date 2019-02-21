@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
+// redux
+import { connect } 			  from "react-redux";
 import { bindActionCreators } from 'redux'
 // components
-import Card from '../../Components/Card';
+import Card from '../../components/Card';
 // form
-import CreateUserForm from '../../Components/Forms/CreateUserForm';
+import CreateUserForm from '../../components/forms/CreateUser';
 
 import {
 	createUser
-} from '../../Middleware/UsersMiddleware';
+} from '../../redux/middleware/users';
 
 class CreateUser extends Component {
 	constructor(props) {

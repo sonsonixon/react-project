@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import ServerSideTable from '../../Components/ServerSideTable';
+import ServerSideTable from '../../components/ServerSideTable';
 
 class UserList extends React.Component {
     constructor(props) {

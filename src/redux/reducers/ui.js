@@ -1,10 +1,9 @@
-// import actions from action creator
 import {
-    // api fetch
+    // fetch loader
     SHOW_FETCH_LOADER,
     HIDE_FETCH_LOADER,
 
-    // api post
+    // post loader
     SHOW_POST_LOADER,
     HIDE_POST_LOADER,
 
@@ -17,7 +16,7 @@ import {
     GET_CURRENT_FORM,
     REMOVE_FORM,
 
-} from '../ActionCreator';
+} from '../actionCreator/';
 
 const initialState = {
     // api requests loader states
@@ -35,7 +34,6 @@ const initialState = {
     page: null,
     pageSize: null,
     url: null,
-
 };
 
 export default (state = initialState, action) => {

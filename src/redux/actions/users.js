@@ -35,7 +35,7 @@ import {
     HAS_SUCCESS_ROLE,
     SET_ERROR_ROLE,
     CLEAR_ROLE,
-} from '../ActionCreator';
+} from '../actionCreator/';
 
 export const clearUSERS = () => (dispatch) => Promise.resolve().then(() => {
     return dispatch({

@@ -9,19 +9,19 @@ import {
 	// hide post loader
 	hidePostLoader,
 	
-} from '../Actions/UiActions';
+} from '../actions/ui';
 
 import {
 	fetchTableData
-} from './ApiMiddleware';
+} from './api';
 
 import {
 	handleErrorsTodos,
-} from './TodosMiddleware';
+} from './todos';
 
 import {
 	handleErrorsUSERS
-} from './UsersMiddleware';
+} from './users';
 
 // reset form
 import { reset } from 'redux-form';

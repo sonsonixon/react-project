@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 // Components
-import Sidebar from '../Components/Sidebar';
-import Navbar from '../Components/Navbar';
-import Footer from '../Components/Footer';
+import Sidebar from '../components/Sidebar';
+import Navbar  from '../components/Navbar';
+import Footer  from '../components/Footer';
 
 class Main extends Component {
     render() {

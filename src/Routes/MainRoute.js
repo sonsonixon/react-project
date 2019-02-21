@@ -6,38 +6,38 @@ import { BrowserRouter as Router,
 // provider
 import { Provider } from 'react-redux'
 // redux store
-import Store, { history } from '../Store/store';
+import store, { history } from '../redux/store/';
 
 // container
-import Main    from '../Containers/Main';
-import Outline from '../Containers/Outline';
+import MainContainer    from '../containers/MainContainer';
+import OutlineContainer from '../containers/OutlineContainer';
 
 // modules
-import CreateUser from '../Modules/Users/CreateUser';
-import UserList   from '../Modules/Users/UserList';
-import Dashboard  from '../Modules/Dashboard';
-import Todo 	  from '../Modules/Todo';
-import Login      from '../Modules/Login';
+import CreateUser from '../modules/users/CreateUser';
+import UserList   from '../modules/users/UserList';
+import Dashboard  from '../modules/Dashboard';
+import Todo 	  from '../modules/Todo';
+import Login      from '../modules/Login';
 
 // connected react router
 import { ConnectedRouter } from 'connected-react-router';
 
 // routes
-import PrivateRoute from '../Routes/PrivateRoute';
-import PublicRoute  from '../Routes/PublicRoute';
+import ProtectedRoute from '../routes/ProtectedRoute';
+import PublicRoute  from '../routes/PublicRoute';
 
 class MainRoute extends Component {
     render() {
         return (
         	<Router>
-        		<Provider store={Store}>
+        		<Provider store={store}>
                     <ConnectedRouter history={history}>
             			<Switch>
-        					<PrivateRoute exact={true} path="/" layout={Main}    component={Dashboard}  />
-        					<PrivateRoute path="/users/create"  layout={Main}    component={CreateUser} />
-        					<PrivateRoute path="/users"         layout={Main}    component={UserList}   />
-        					<PrivateRoute path="/todos"         layout={Main}    component={Todo}       />
-      						<PublicRoute  path="/login"         layout={Outline} component={Login}      />
+        					<ProtectedRoute exact={true} path="/" layout={MainContainer}    component={Dashboard}  />
+        					<ProtectedRoute path="/users/create"  layout={MainContainer}    component={CreateUser} />
+        					<ProtectedRoute path="/users"         layout={MainContainer}    component={UserList}   />
+        					<ProtectedRoute path="/todos"         layout={MainContainer}    component={Todo}       />
+      						<PublicRoute  path="/login"           layout={OutlineContainer} component={Login}      />
     	            	</Switch>
                     </ConnectedRouter>
 		        </Provider>

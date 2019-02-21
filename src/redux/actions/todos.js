@@ -13,7 +13,7 @@ import {
     IS_VALID_TITLE,
     SET_ERROR_TITLE,
     CLEAR_TITLE,
-} from '../ActionCreator';
+} from '../actionCreator/';
 
 export const clearClassTodos = () => (dispatch) => Promise.resolve().then(() => {
 	return dispatch ({

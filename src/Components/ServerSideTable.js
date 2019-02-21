@@ -10,7 +10,7 @@ import {
     saveTableData,
     renderTable,
     destroyTable
-} from '../Middleware/UiMiddleware';
+} from '../redux/middleware/ui';
 
 class ServerSideTable extends Component {
     constructor(props) {

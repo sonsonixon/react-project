@@ -6,11 +6,12 @@ import {
     IS_VALID_PASSWORD,
     IS_INVALID_USERNAME,
     IS_INVALID_PASSWORD,
-} from '../ActionCreator';
+} from '../actionCreator/';
 
 const initialState = {
     isAuthenticated: false,
     user: null,
+    token: '',
     isLoggingIn: false,
     username: {
         isValid: false,
@@ -28,6 +29,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isAuthenticated: true,
                 user: action.payload.user,
+                token: action.payload.token,
             };
         case IS_SUBMITTING:
             return {

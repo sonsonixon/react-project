@@ -1,10 +1,10 @@
 import {
 	postRequest
-} from './ApiMiddleware';
+} from './api';
 
 import {
 	showPostLoader,
-} from '../Actions/UiActions';
+} from '../actions/ui';
 
 import {
 	clearUSERS,
@@ -29,7 +29,7 @@ import {
 	// role
 	hasErrorROLE,
 	setErrorROLE,
-} from '../Actions/UserActions';
+} from '../actions/users';
 
 export function handleErrorsUSERS(data) {
 	return function(dispatch) {

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import LoginForm from '../Components/Forms/LoginForm';
+import LoginForm from '../components/forms/Login';
 
 import {
 	login,
-} from '../Middleware/LoginMiddleware';
+} from '../redux/middleware/login';
 
 class Login extends Component {
 	constructor(props) {

@@ -1,10 +1,10 @@
 import {
 	postRequest
-} from './ApiMiddleware';
+} from './api';
 
 import {
 	showPostLoader,
-} from '../Actions/UiActions';
+} from '../actions/ui';
 
 import {
 	clearClassTodos,
@@ -14,7 +14,7 @@ import {
 	// title
 	hasErrorTitle,
 	setErrorTitle,
-} from '../Actions/TodosActions';
+} from '../actions/todos';
 
 export function handleErrorsTodos(data) {
 	return function (dispatch) {
