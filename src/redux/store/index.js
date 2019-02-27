@@ -32,6 +32,6 @@ store.subscribe(throttle(() => {
 	});
 }), 1000);
 
-console.log(store.getState());
+console.log(persistedState);
 
 export default store
