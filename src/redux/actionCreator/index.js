@@ -1,24 +1,24 @@
 // api
-export const API_REQUEST 	 = 	'[API] API_REQUEST';
-export const REQUEST_SUCCESS = '[API] REQUEST_SUCCESS';
-export const REQUEST_FAILED  = '[API] REQUEST_FAILED';
+export const API_REQUEST 	 = '[ API ] API_REQUEST';
+export const REQUEST_SUCCESS = '[ API ] REQUEST_SUCCESS';
+export const REQUEST_FAILED  = '[ API ] REQUEST_FAILED';
 
 // serverside table
-export const GET_TABLE_DATA = '[SERVERSIDE_TABLE] SAVE_TABLE';
-export const BUILD_TABLE    = '[SERVERSIDE_TABLE] BUILD_TABLE';
-export const DESTROY_TABLE  = '[SERVERSIDE_TABLE] DESTROY_TABLE';
+export const GET_TABLE_DATA = '[ UI SERVERSIDE_TABLE ] SAVE_TABLE';
+export const BUILD_TABLE    = '[ UI SERVERSIDE_TABLE ] BUILD_TABLE';
+export const DESTROY_TABLE  = '[ UI SERVERSIDE_TABLE ] DESTROY_TABLE';
 
 // form
-export const GET_CURRENT_FORM = '[FORM] GET_CURRENT_FORM';
-export const REMOVE_FORM 	  = '[FORM] REMOVE_FORM';
+export const GET_CURRENT_FORM = '[ UI FORM ] GET_CURRENT_FORM';
+export const REMOVE_FORM 	  = '[ UI FORM ] REMOVE_FORM';
 
 // ui
 // fetch
-export const SHOW_FETCH_LOADER = '[UI] SHOW_FETCH_LOADER';
-export const HIDE_FETCH_LOADER = '[UI] HIDE_FETCH_LOADER';
+export const SHOW_FETCH_LOADER = '[ UI ] SHOW_FETCH_LOADER';
+export const HIDE_FETCH_LOADER = '[ UI ] HIDE_FETCH_LOADER';
 // post
-export const SHOW_POST_LOADER  = '[UI] SHOW_POST_LOADER';
-export const HIDE_POST_LOADER  = '[UI] HIDE_POST_LOADER';
+export const SHOW_POST_LOADER  = '[ UI ] SHOW_POST_LOADER';
+export const HIDE_POST_LOADER  = '[ UI ] HIDE_POST_LOADER';
 
 // todos
 export const CLEAR_CLASS_TODOS  = '[TODOS] CLEAR_CLASS_TODOS';
@@ -79,16 +79,12 @@ export const HAS_SUCCESS_ROLE = '[USERS] HAS_SUCCESS_ROLE';
 export const SET_ERROR_ROLE   = '[USERS] SET_ERROR_ROLE';
 export const CLEAR_ROLE 	  = '[USERS] CLEAR_ROLE';
 
-// login
-export const IS_VALID_USERNAME 	 = '[LOGIN] IS_VALID_USERNAME';
-export const IS_VALID_PASSWORD 	 = '[LOGIN] IS_VALID_PASSWORD';
-export const IS_INVALID_USERNAME = '[LOGIN] IS_INVALID_USERNAME';
-export const IS_INVALID_PASSWORD = '[LOGIN] IS_INVALID_PASSWORD';
+export const VALID_USERNAME 	= '[ UI LOGIN ] VALID_USERNAME';
+export const INVALID_USERNAME 	= '[ UI LOGIN ] INVALID_USERNAME';
 
-export const AUTHENTICATE = '[LOGIN] AUTHENTICATE';
+export const VALID_PASSWORD 	= '[ UI LOGIN ] VALID_PASSWORD';
+export const INVALID_PASSWORD 	= '[ UI LOGIN ] INVALID_PASSWORD';
 
-export const IS_SUBMITTING  	 = '[LOGIN] IS_SUBMITTING';
-export const IS_SUBMITTED 		 = '[LOGIN] IS_SUBMITTED';
-
-export const LOGIN_ERROR 	   	 = '[LOGIN] LOGIN_ERROR';
-export const LOGIN_SUCCESS 	   	 = '[LOGIN] LOGIN_SUCCESS';
+export const RECEIVE_TOKEN 		= '[ USER ] RECEIVE_TOKEN';
+export const RECEIVE_USERDATA 	= '[ USER ] RECEIVE_USERDATA';
+export const AUTHENTICATE 		= '[ USER ] AUTHENTICATE';

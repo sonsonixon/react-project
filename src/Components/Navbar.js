@@ -1,11 +1,26 @@
 import React, { Component } from 'react';
-// react router
-import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import {
+    logout
+} from '../redux/middleware/user';
+
 
 class Navbar extends Component {
+    constructor(props) {
+        super(props);
+
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    handleLogout(e) {
+        const { logout } = this.props;
+
+        logout();
+    }
+
     render() {
-        const userData = JSON.parse(localStorage.getItem('user'));
-        const { first_name, last_name } = userData;
         return (
             <nav className="navbar navbar-expand-lg navbar-absolute fixed-top bg-danger">
                 <div className="container-fluid">
@@ -18,7 +33,6 @@ class Navbar extends Component {
                             </button>
                         </div>
                         <p>
-                        	Welcome: { first_name + ' ' + last_name }
                         </p>
                     </div>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +68,7 @@ class Navbar extends Component {
                                     </p>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <Link className="dropdown-item" to="/logout">Logout</Link>
+                                    <a href="#\" className="dropdown-item" onClick={this.handleLogout}>Logout</a>
                                 </div>
                             </li>
                         </ul>
@@ -65,4 +79,8 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar;
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    logout
+}, dispatch);
+
+export default connect(null, mapDispatchToProps)(Navbar);

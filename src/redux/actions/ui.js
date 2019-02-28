@@ -1,4 +1,10 @@
 import {
+	// login
+	VALID_USERNAME,
+	INVALID_USERNAME,
+	VALID_PASSWORD,
+	INVALID_PASSWORD,
+
 	// fetch loader
 	SHOW_FETCH_LOADER,
 	HIDE_FETCH_LOADER,
@@ -17,7 +23,31 @@ import {
 		
 } from '../actionCreator/';
 
-// fetch loader
+// login
+export const isValidUSERNAME = () => (dispatch) => {
+	return dispatch({
+		type: VALID_USERNAME
+	})
+}
+
+export const isInvalidUSERNAME = () => (dispatch) => {
+	return dispatch({
+		type: INVALID_USERNAME
+	})
+}
+
+export const isValidPASSWORD = () => (dispatch) => {
+	return dispatch({
+		type: VALID_PASSWORD
+	})
+}
+
+export const isInvalidPASSWORD = () => (dispatch) => {
+	return dispatch({
+		type: INVALID_PASSWORD
+	})
+}
+
 export const showFetchLoader = () => (dispatch) => 
 	Promise.resolve().then(() => {
 		return dispatch({
@@ -29,7 +59,6 @@ export const hideFetchLoader = () => ({
 	type: HIDE_FETCH_LOADER
 })
 
-// post loader
 export const showPostLoader = () => (dispatch) => 
 	Promise.resolve().then(() => {
 		return dispatch({

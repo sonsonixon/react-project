@@ -1,9 +1,7 @@
 import {
-    // fetch loader
+    // loaders
     SHOW_FETCH_LOADER,
     HIDE_FETCH_LOADER,
-
-    // post loader
     SHOW_POST_LOADER,
     HIDE_POST_LOADER,
 
@@ -16,24 +14,40 @@ import {
     GET_CURRENT_FORM,
     REMOVE_FORM,
 
+     // login
+    VALID_USERNAME,
+    INVALID_USERNAME,
+    VALID_PASSWORD,
+    INVALID_PASSWORD,
+
 } from '../actionCreator/';
 
 const initialState = {
-    // api requests loader states
+    // loaders
     isFetching: false,
     isPosting:  false,
     isUpdating: false,
     isDeleting: false,
 
-    // current form
+    // form
     currentForm: '',
 
-    // serverside table states
+    // serverside table
     data: [],
     pages: null,
     page: null,
     pageSize: null,
     url: null,
+
+    // login
+    login: {
+        username: {
+            isValid: false,
+        },
+        password: {
+            isValid: false,
+        }
+    },
 };
 
 export default (state = initialState, action) => {
@@ -97,6 +111,52 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 currentForm: '',
+            };
+
+        // login
+        case VALID_USERNAME:
+            return {
+                ...state,
+                login: {
+                    ...state.login,
+                    username: {
+                        ...state.username,
+                        isValid: true,
+                    }
+                }
+            };
+        case INVALID_USERNAME:
+            return {
+               ...state,
+                login: {
+                    ...state.login,
+                    username: {
+                        ...state.username,
+                        isValid: false,
+                    }
+                } 
+            }
+        case VALID_PASSWORD:
+            return {
+                ...state,
+                login: {
+                    ...state.login,
+                    password: {
+                        ...state.password,
+                        isValid: true,
+                    }
+                }
+            };
+        case INVALID_PASSWORD:
+            return {
+               ...state,
+                login: {
+                    ...state.login,
+                    password: {
+                        ...state.password,
+                        isValid: false,
+                    }
+                } 
             }
         
         default:

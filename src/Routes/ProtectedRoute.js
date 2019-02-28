@@ -5,19 +5,17 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
 class PrivateRoute extends Component {
-
 	render() {
 		const { layout: Layout, component: Component, isAuthenticated, ...rest } = this.props;
-		console.log(isAuthenticated);
 		return (
 			<Route {...rest} render={(props) => (
 				isAuthenticated ? (
-					 <Layout>
-			            <Component />
+			        <Layout>
+			            <Component {...props} />
 			        </Layout>
-				) : (
-					<Redirect to="/login" />
-				)
+		        ) : (
+		        	<Redirect to="/login" />
+		        )
 		    )}/>
 		)
 	}
@@ -41,9 +39,9 @@ class PrivateRoute extends Component {
 */
 
 const mapStateToProps = (state) => {
-	const login = state.login;
+	const user = state.user;
 	return {
-		isAuthenticated: login.isAuthenticated,
+		isAuthenticated: user.isAuthenticated,
 	}
 }
 

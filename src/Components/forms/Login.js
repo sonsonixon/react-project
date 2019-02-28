@@ -7,10 +7,11 @@ import { Field, reduxForm } from 'redux-form';
 // Actions
 import {
 	isValidUSERNAME,
-	isValidPASSWORD,
 	isInvalidUSERNAME,
+	isValidPASSWORD,
 	isInvalidPASSWORD,
-} from '../../redux/actions/login';
+} from '../../redux/actions/ui';
+
 
 class LoginForm extends Component {
 	constructor(props) {
@@ -22,28 +23,38 @@ class LoginForm extends Component {
 
 	handleOnBlurUSERNAME(e) {
 		let username = e.target.value;
+		const {
+			isValidUSERNAME,
+			isInvalidUSERNAME,
+		} = this.props;
+
 		if(username) {
-			this.props.isValidUSERNAME();
+			isValidUSERNAME();
 		} else {
-			this.props.isInvalidUSERNAME();
+			isInvalidUSERNAME();
 		}
 	}
 
 	handleOnBlurPASSWORD(e) {
 		let password = e.target.value;
+		const {
+			isValidPASSWORD,
+			isInvalidPASSWORD,
+		} = this.props;
+		
 		if(password) {
-			this.props.isValidPASSWORD();
+			isValidPASSWORD();
 		} else {
-			this.props.isInvalidPASSWORD();
+			isInvalidPASSWORD();
 		}
 	}
 
 	render() {
 
 		const { 
-			handleSubmit, isLoggingIn,
-			validUSERNAME,
-			validPASSWORD,
+			handleSubmit, isPosting,
+			isValidUsername,
+			isValidPassword,
 		} = this.props;
 
 		return (
@@ -96,9 +107,9 @@ class LoginForm extends Component {
 					<button 
 						type="submit" 
 						className="btn btn-danger btn-round btn-block mb-3"
-						disabled={ !validUSERNAME || !validPASSWORD || isLoggingIn }
+						disabled={ !isValidUsername || !isValidPassword || isPosting }
 					>
-						{isLoggingIn ? <i className="fa fa-fw fa-spin fa-spinner"></i> : 'Login'}
+						{isPosting ? <i className="fa fa-fw fa-spin fa-spinner"></i> : 'Login'}
 					</button>
 				</div>
 			</form>
@@ -107,21 +118,19 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-	const username = state.login.username;
-	const password = state.login.password;
-	const login = state.login;
-
+	const ui = state.ui;
+	const login = state.ui.login;
 	return {
-		isLoggingIn: login.isLoggingIn,
-		validUSERNAME: username.isValid,
-		validPASSWORD: password.isValid,
+		isPosting: ui.isPosting,
+		isValidUsername: login.username.isValid,
+		isValidPassword: login.password.isValid,
 	}
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
 	isValidUSERNAME,
-	isValidPASSWORD,
 	isInvalidUSERNAME,
+	isValidPASSWORD,
 	isInvalidPASSWORD,
 }, dispatch)
 

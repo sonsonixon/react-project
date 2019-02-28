@@ -5,7 +5,7 @@ import LoginForm from '../components/forms/Login';
 
 import {
 	login,
-} from '../redux/middleware/login';
+} from '../redux/middleware/user';
 
 class Login extends Component {
 	constructor(props) {
