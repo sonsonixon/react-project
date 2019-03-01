@@ -6,7 +6,7 @@ import {
 
 const initialState = {
 	isAuthenticated: false,
-	user: {},
+	data: {},
 	token: null,
 };
 
@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
     	case RECEIVE_USERDATA:
 			return {
 				...state,
-				user: action.payload.data,
+				data: action.payload.data,
 			};
 		case AUTHENTICATE:
 			return {
