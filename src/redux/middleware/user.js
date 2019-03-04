@@ -5,14 +5,16 @@ import {
 } from '../actions/ui'
 
 import {
-	receiveToken,
 	receiveUserData,
 	authenticate,
+	removeUserData,
+	deauthenticate,
 } from '../actions/user';
+
 // api sauce
 import apiCreator from '../../services/api';
 
-import swal from 'sweetalert2';
+import swal from 'sweetalert';
 
 import { push } from 'connected-react-router';
  
@@ -36,7 +38,7 @@ export function login(data) {
 			}
 		})
 		.then(() => {
-			dispatch(hidePostLoader())
+			dispatch(hidePostLoader());
 		})
 	}
 }
@@ -46,14 +48,27 @@ export function logout() {
 		swal({
 		  	title: 'Logout',
 		  	text: 'Are you sure you want to logout?',
-		  	type: 'info',
-		  	showCancelButton: true,
-		  	confirmButtonColor: '#3085d6',
-		  	cancelButtonColor: '#d33',
-		  	confirmButtonText: 'Yes, Log me out'
+		  	icon: 'warning',
+		  	buttons: {
+			    cancel: "Cancel",
+			    logout: {
+			      	text: "Yes, Log me out",
+			      	value: "logout",
+			    },
+		  	},
 		}).then((res) => {
-		  	if (res.value) {
-			   	console.log('he really wants to logout')
+		  	switch (res) {
+			    case "logout":
+			      	Promise.all([
+			      		dispatch(removeTokenFromLocalStorage()),
+			      		dispatch(removeUserData()),
+			      		dispatch(deauthenticate()),
+			      	]).then(() => {
+			      		dispatch(redirect('/login'))
+			      	})
+			      	break;
+			    default:
+			      	// do nothing
 		  	}
 		})
 	}
@@ -65,10 +80,22 @@ function redirect(location) {
 	}
 }
 
+function removeTokenFromLocalStorage() {
+	return function() {
+		localStorage.removeItem('token');
+	}
+}
+
+function saveTokenToLocalStorage(token) {
+	return function() {
+		localStorage.setItem('token', token);
+	}
+}
+
 function handleLoginSuccess(user) {
 	return function(dispatch) {
 		Promise.all([
-			dispatch(receiveToken(user.token)),
+			dispatch(saveTokenToLocalStorage(user.token)),
 			dispatch(receiveUserData(user.data)),
 			dispatch(authenticate()),
 		])
@@ -80,7 +107,7 @@ function handleLoginSuccess(user) {
 
 function handleLoginError(data) {
 	return function(dispatch) {
-		return dispatch(showLoginErrorMessage(data))
+		dispatch(showLoginErrorMessage(data))
 	}
 }
 
@@ -89,7 +116,7 @@ function showLoginErrorMessage(error) {
 		const errorMessage = swal({
 		  	title 	: error.title,
 		  	text 	: error.message,
-		  	type 	: 'error',
+		  	icon 	: 'error',
 		})
 		return errorMessage;
 	}

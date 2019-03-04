@@ -27,7 +27,7 @@ import {
 import { reset } from 'redux-form';
 
 // plugins
-import swal from 'sweetalert2';
+import swal from 'sweetalert';
 import Noty from 'noty';
 import mojs from 'mo-js';
 

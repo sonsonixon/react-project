@@ -8,15 +8,20 @@ const create = () => {
 
 		baseURL,
 		headers: {
-			'Access-Control-Allow-Origin' : '*',
 			'Cache-Control': 'no-cache'
-		}
-
+		},
+		// 10 second timeout...
+    	timeout: 10000000
 	})
+
+	// add token to request headers
+	api.addAsyncRequestTransform(request => async () => {
+	    request.headers['token'] = await localStorage.getItem('token');
+  	});
 
 	// login
 	const login = (data) =>
-		api.post('users/login', {
+		api.post('/login', {
 			'data' : data
 		}, {
 			headers : {

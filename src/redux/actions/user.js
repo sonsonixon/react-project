@@ -1,13 +1,19 @@
 import {
-	RECEIVE_TOKEN,
 	RECEIVE_USERDATA,
 	AUTHENTICATE,
+	REMOVE_USERDATA,
+	DEAUTHENTICATE,
 } from '../actionCreator/';
 
-export const receiveToken = (token) => (dispatch) => {
+export const removeUserData = () => (dispatch) => {
 	return dispatch({
-		type: RECEIVE_TOKEN,
-		payload: { token }
+		type: REMOVE_USERDATA
+	})
+}
+
+export const deauthenticate = () => (dispatch) => {
+	return dispatch({
+		type: DEAUTHENTICATE
 	})
 }
 

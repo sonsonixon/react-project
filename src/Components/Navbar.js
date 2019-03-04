@@ -15,13 +15,9 @@ class Navbar extends Component {
     }
 
     handleLogout(e) {
+        e.preventDefault();
         const { logout } = this.props;
-
-        //logout();
-
-        const local = localStorage.getItem('state');
-
-        console.log(local);
+        logout();
     }
 
     render() {
