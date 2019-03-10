@@ -12,4 +12,19 @@ TIPS:
 	* Write more code that what you're actually writing
 	* A good code is no code, but a better code must be human readable
 	* You decide on what your code is going to be
+
+
+Naming Conventions - Redux
+
+Actions
+ -> DO name each action (constant) as <NOUN>_<VERB> with the present tense
+ 	{ TODO_ADD }
+
+Action Creators
+ -> DO name each action creator as <verb><Noun>
+	{ const addTodo }
+
+Selectors
+ -> DO name each selector as get<Noun>
+ 	{ getUsers }
 	

@@ -3,22 +3,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-
 class Dashboard extends Component {
     constructor(props) {
         super(props);
-
         this.onClick = this.onClick.bind(this);
     }
 
-    onClick(event) {
-        event.preventDefault();
+    onClick() {
 
-        console.log('state updated')
     }
 
     render() {
-        
         return (
         	<div className="text-center">
             	<h4> REACT PROJECT </h4>
@@ -31,9 +26,8 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => {
-
     return {
-
+        
     }
 }
 

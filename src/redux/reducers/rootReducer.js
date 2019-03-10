@@ -1,13 +1,16 @@
 import { combineReducers } from 'redux';
 
-//Reducers
-import user from './user';
-import counter from './counter';
-import users   from './users';
-import todos   from './todos';
-import ui 	   from './ui';
+// reducers
+import user    from './UserReducer';
+import counter from './CounterReducer';
+import users   from './UsersReducer';
+import todos   from './TodosReducer';
+import ui 	   from './UiReducer';
+import login   from './LoginReducer';
+
 // connected react router
 import { connectRouter } from 'connected-react-router';
+
 // redux form
 import { reducer as form } from 'redux-form';
 
@@ -18,5 +21,6 @@ export default (history) => combineReducers({
 	form: 	 form,
 	users: 	 users,
 	todos: 	 todos,
-	ui: 	 ui,  	
+	ui: 	 ui,
+	login:   login,
 });

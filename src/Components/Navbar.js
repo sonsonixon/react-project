@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import {
-    logout
-} from '../redux/middleware/user';
+    getCurrentUser,
+    logout,
+} from '../Redux/Middlewares/UserMiddleware';
 
 
 class Navbar extends Component {
     constructor(props) {
         super(props);
-
         this.handleLogout = this.handleLogout.bind(this);
     }
 
-    handleLogout(e) {
-        e.preventDefault();
+    componentDidMount() {
+        const { uuid, getCurrentUser } = this.props;
+        getCurrentUser(uuid);
+    }
+
+    handleLogout() {
         const { logout } = this.props;
         logout();
     }
 
     render() {
+        //const { currentUser } = this.props;
+        //const name = currentUser.first_name + ' ' + currentUser.last_name;
+
         return (
             <nav className="navbar navbar-expand-lg navbar-absolute fixed-top bg-danger">
                 <div className="container-fluid">
@@ -33,6 +39,7 @@ class Navbar extends Component {
                             </button>
                         </div>
                         <p>
+                            
                         </p>
                     </div>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,8 +86,17 @@ class Navbar extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    const user = state.user;
+    return {
+        uuid: user.uuid,
+        user: user.user,
+    }
+}
+
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    logout
+    getCurrentUser,
+    logout,
 }, dispatch);
 
-export default connect(null, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

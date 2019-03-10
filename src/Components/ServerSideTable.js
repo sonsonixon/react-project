@@ -7,30 +7,26 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
 import {
-    saveTableData,
-    renderTable,
-    destroyTable
-} from '../redux/middleware/ui';
+    handleTableCreation,
+    handleTableDestroy,
+} from '../Redux/Middlewares/UiMiddleware';
 
 class ServerSideTable extends Component {
     constructor(props) {
         super(props);
-
         this.fetchData = this.fetchData.bind(this);
     }
 
     fetchData(state, instance) {
-        // save api, pageSize and page to redux state
-        this.props.saveTableData(this.props.api, state.pageSize, state.page) 
-        .then(() => {
-            // render table
-            this.props.renderTable(this.props.url, this.props.pageSize, this.props.page);
-        })
+        const { handleTableCreation, api } = this.props;
+        const { pageSize, page } = state;
         
+        handleTableCreation(api, pageSize, page);
     }
 
     componentWillUnmount() {
-        this.props.destroyTable();
+        const { handleTableDestroy } = this.props;
+        handleTableDestroy();
     }
 
     render() {  
@@ -58,19 +54,18 @@ const mapStateToProps = (state) => {
     // call ui states as props
     const ui = state.ui;
     return {
-        data:       ui.data, // table data
-        pages:      ui.pages, // total pages
-        url:        ui.url, // api url
-        page:       ui.page, // current page number
-        pageSize:   ui.pageSize, // page size
+        data:       ui.serversideTable.data, // table data
+        pages:      ui.serversideTable.pages, // total pages
+        url:        ui.serversideTable.url, // api url
+        page:       ui.serversideTable.page, // current page number
+        pageSize:   ui.serversideTable.pageSize, // page size
         loading:    ui.isFetching // fetch loader
     }
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    saveTableData, // save api url, page number and page size to redux state
-    renderTable, // render table
-    destroyTable // destroy table on component unmount
+    handleTableCreation,
+    handleTableDestroy,
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ServerSideTable);

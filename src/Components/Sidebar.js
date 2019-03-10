@@ -19,6 +19,42 @@ class Sidebar extends Component {
 	                </NavLink>
 	            </div>
 	            <div className="sidebar-wrapper ps-container ps-theme-default ps-active-x ps-active-y">
+	            	<div className="user">
+			          	<div className="photo">
+			            	<img src="../assets/img/faces/ayo-ogunseinde-2.jpg" alt="DP" />
+			          	</div>
+			          	<div className="info">
+			            <a data-toggle="collapse" href="#collapseExample" className="collapsed">
+			              <span>
+			                Chet Faker
+			                <b className="caret"></b>
+			              </span>
+			            </a>
+			            <div className="clearfix"></div>
+				            <div className="collapse" id="collapseExample">
+				              	<ul className="nav">
+					                <li>
+					                  	<a href="#\">
+						                    <span className="sidebar-mini-icon">MP</span>
+						                    <span className="sidebar-normal">My Profile</span>
+					                  	</a>
+					                </li>
+					                <li>
+					                  	<a href="#\">
+						                    <span className="sidebar-mini-icon">EP</span>
+						                    <span className="sidebar-normal">Edit Profile</span>
+					                  	</a>
+					                </li>
+					                <li>
+					                  	<a href="#\">
+						                    <span className="sidebar-mini-icon">S</span>
+						                    <span className="sidebar-normal">Settings</span>
+					                  	</a>
+					                </li>
+				              	</ul>
+				            </div>
+			          	</div>
+			        </div>
 	                <ul className="nav">
 	                 	<SidebarLink to="/" exact={true} icon="fa fa-fw fa-dashboard" title="Dashboard" />
 	                 	<Collapse to="/users" title="Users" icon="fa fa-fw fa-users" id="usersCollapse">

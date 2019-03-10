@@ -1,17 +1,22 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import rootReducer from '../reducers/rootReducer';
-
+// connected react router
 import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 
-import { loadState, saveState } from '../middleware/localStorage';
-
+// lodash
 import throttle from 'lodash/throttle';
 
-//import { LoggerMiddleware } from '../Middleware/LoggerMiddleware';
+// reducer
+import rootReducer from '../Reducers/RootReducer';
 
+// middleware
+import { Logger } from '../Middlewares/LoggerMiddleware';
+
+import { loadState, saveState } from './localStorage';
+
+// local storage
 export const history = createBrowserHistory();
 
 const persistedState = loadState();
@@ -22,16 +27,16 @@ const store = createStore(
     applyMiddleware(
     	routerMiddleware(history),
     	thunk,
-    	//LoggerMiddleware
+    	Logger
     ),
 )
 
 store.subscribe(throttle(() => {
 	saveState({
-		user: store.getState().user
+		user: store.getState().user,
 	});
 }), 1000);
 
-console.log(persistedState);
+// console.log(persistedState);
 
 export default store

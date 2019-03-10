@@ -11,14 +11,14 @@ import {
 	hasSuccessTitle,
 	isValidTitle,
 	clearTitle,
-} from '../../redux/actions/todos';
+} from '../../Redux/ActionCreators/TodosActions';
 
 import classnames from 'classnames';
 
 import {
-    saveCurrentForm,
-    clearForm
-} from '../../redux/middleware/ui';
+    handleSetForm,
+    handleFormDestroy,
+} from '../../Redux/Middlewares/UiMiddleware';
 
 class AddTodoForm extends Component {
 	constructor(props) {
@@ -30,11 +30,11 @@ class AddTodoForm extends Component {
 
 	componentDidMount() {
 		// save the form name on page render
-		this.props.saveCurrentForm('addTodo');
+		this.props.handleSetForm('addTodo');
 	}
 
 	componentWillUnmount() {
-		this.props.clearForm();
+		this.props.handleFormDestroy();
 	}
 
 	OnBlurUserid(e) {
@@ -176,8 +176,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 	clearTitle,
 
 	// form
-	saveCurrentForm,
-	clearForm
+	handleSetForm,
+    handleFormDestroy,
 }, dispatch)
 
 AddTodoForm = reduxForm({
